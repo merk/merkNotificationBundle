@@ -11,7 +11,7 @@
 
 namespace merk\NotificationBundle\Model;
 
-use FOS\UserBundle\Model\UserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 abstract class NotificationManager implements NotificationManagerInterface
 {

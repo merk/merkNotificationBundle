@@ -12,7 +12,7 @@
 namespace merk\NotificationBundle\Entity;
 
 use Doctrine\ORM\EntityManager;
-use FOS\UserBundle\Model\UserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use merk\NotificationBundle\Model\NotificationInterface;
 use merk\NotificationBundle\Model\NotificationManager as BaseNotificationManager;
 use \DateTime;

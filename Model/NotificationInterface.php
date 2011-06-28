@@ -11,7 +11,7 @@
 
 namespace merk\NotificationBundle\Model;
 
-use FOS\Userbundle\Model\UserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use \DateTime;
 
 /**
