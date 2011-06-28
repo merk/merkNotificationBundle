@@ -12,7 +12,7 @@
 namespace merk\NotificationBundle\Model;
 
 use Symfony\Component\Security\Core\User\UserInterface;
-use \DateTime;
+use DateTime;
 
 /**
  * Base Notification interface.
@@ -70,8 +70,12 @@ interface NotificationInterface
      *
      * @return DateTime
      */
-    function getReadDate();
+    function getReadAt();
 
-    function setCreated();
-    function getCreated();
+    /**
+     * Returns the date the notification was created.
+     *
+     * @return DateTime
+     */
+    function getCreatedAt();
 }

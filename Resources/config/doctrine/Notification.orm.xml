@@ -17,7 +17,7 @@
     <mapped-superclass name="merk\NotificationBundle\Entity\Notification">
 
         <field name="message" column="message" type="string" />
-        <field name="readAt" column="readAt" type="datetime" />
+        <field name="readAt" column="readAt" type="datetime" nullable="true" />
         <field name="createdAt" column="createdAt" type="datetime" />
 
     </mapped-superclass>
