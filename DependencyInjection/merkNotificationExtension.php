@@ -46,11 +46,17 @@ class merkNotificationExtension extends Extension
         }
         $loader->load(sprintf('%s.xml', $config['db_driver']));
 
-        foreach (array('twig') as $basename) {
+        foreach (array('twig', 'user_preferences') as $basename) {
             $loader->load(sprintf('%s.xml', $basename));
         }
 
         $container->setParameter('merk_notification.model.notification.class', $config['class']['model']['notification']);
         $container->setAlias('merk_notification.manager.notification', $config['service']['manager']['notification']);
+
+        $container->setParameter('merk_notification.model.user_preferences.class', $config['class']['model']['user_preferences']);
+        $container->setAlias('merk_notification.manager.user_preferences', $config['service']['manager']['user_preferences']);
+        $container->setParameter('merk_notification.form_type.user_preferences', 'merk_notification_user_preferences');
+        $container->setParameter('merk_notification.form_name.user_preferences', 'merk_notification_user_preferences');
+        $container->setAlias('merk_notification.form_handler.user_preferences', 'merk_notification.form_handler.user_preferences.default');
     }
 }

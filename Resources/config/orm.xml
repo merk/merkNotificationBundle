@@ -18,6 +18,12 @@
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument>%merk_notification.model.notification.class%</argument>
         </service>
+
+        <service id="merk_notification.manager.user_preferences.default" class="merk\NotificationBundle\Entity\UserPreferencesManager" public="false">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument>%merk_notification.model.user_preferences.class%</argument>
+            <argument type="service" id="security.context" />
+        </service>
     </services>
 
 </container>

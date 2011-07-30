@@ -31,8 +31,13 @@ class UserPreferencesType extends AbstractType
         $builder->add('notificationMethod', 'choice', array(
             'choices' => $this->getNotificationOptions(),
             'multiple' => true,
-            'expenaded' => true,
+            'expanded' => true,
         ));
+    }
+
+    protected function getNotificationOptions()
+    {
+        return array('test' => 'hallo');
     }
 
     public function getDefaultOptions(array $options)
@@ -42,6 +47,6 @@ class UserPreferencesType extends AbstractType
 
     public function getName()
     {
-        return 'merk_notification_userpreferences';
+        return 'merk_notification_user_preferences';
     }
 }

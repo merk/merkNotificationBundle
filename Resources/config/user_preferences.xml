@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+ This file is part of the NotificationBundle package.
+
+ (c) Tim Nagel <tim@nagel.com.au>
+
+ This source file is subject to the MIT license that is bundled
+ with this source code in the file LICENSE.
+-->
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="merk_notification.form.user_preferences" factory-method="createNamed" factory-service="form.factory" class="Symfony\Component\Form\Form">
+            <argument>%merk_notification.form_type.user_preferences%</argument>
+            <argument>%merk_notification.form_name.user_preferences%</argument>
+        </service>
+
+        <service id="merk_notification.form_type.user_preferences" class="merk\NotificationBundle\Form\Type\UserPreferencesType">
+            <tag name="form.type" alias="merk_notification_user_preferences" />
+            <argument>%merk_notification.model.user_preferences.class%</argument>
+        </service>
+
+        <service id="merk_notification.form_handler.user_preferences.default" class="merk\NotificationBundle\Form\Handler\UserPreferencesHandler" scope="request" public="false">
+            <argument type="service" id="merk_notification.form.user_preferences" />
+            <argument type="service" id="request" />
+            <argument type="service" id="merk_notification.manager.user_preferences" />
+            <argument type="service" id="security.context" />
+        </service>
+    </services>
+
+</container>
+

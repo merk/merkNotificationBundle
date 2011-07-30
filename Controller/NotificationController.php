@@ -28,7 +28,7 @@ class NotificationController extends ContainerAware
 
         return $this->container->get('templating')->renderResponse('merkNotificationBundle:Notification:list.html.twig', array(
             'notifications' => $notifications,
-        );
+        ));
     }
 
     public function viewAction($id)
@@ -41,7 +41,7 @@ class NotificationController extends ContainerAware
 
         return $this->container->get('templating')->renderResponse('merkNotificationBundle:Notification:view.html.twig', array(
             'notification' => $notification,
-        );
+        ));
     }
 
     public function redirectAction($id)

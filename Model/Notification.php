@@ -20,6 +20,8 @@ abstract class Notification implements NotificationInterface
     protected $user;
     protected $message;
     protected $createdAt;
+    protected $routeName;
+    protected $routeParams = array();
 
     public function __construct()
     {
@@ -64,5 +66,15 @@ abstract class Notification implements NotificationInterface
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+
+    public function getRouteName()
+    {
+        return $this->routeName;
+    }
+
+    public function getRouteParams()
+    {
+        return $this->routeParams;
     }
 }

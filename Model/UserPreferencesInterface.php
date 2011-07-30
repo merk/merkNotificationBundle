@@ -29,14 +29,6 @@ interface UserPreferencesInterface
     function getUser();
 
     /**
-     * Sets the user the notification belongs to.
-     *
-     * @param UserInterface $user
-     * @return void
-     */
-    function setUser(UserInterface $user);
-
-    /**
      * Returns the service alias for the user specified notification
      * method.
      *
@@ -60,4 +52,11 @@ interface UserPreferencesInterface
      * @return DateTime
      */
     function getLastUpdated();
+
+    /**
+     * Increments the lastUpdated property.
+     *
+     * @return void
+     */
+    function markUpdated();
 }

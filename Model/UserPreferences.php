@@ -20,6 +20,11 @@ abstract class UserPreferences implements UserPreferencesInterface
     protected $lastUpdated;
     protected $notificationMethod;
 
+    public function __construct(UserInterface $user)
+    {
+        $this->user = $user;
+    }
+
     /**
      * Returns the User the notification belongs to.
      *
@@ -31,17 +36,6 @@ abstract class UserPreferences implements UserPreferencesInterface
     }
 
     /**
-     * Sets the user the notification belongs to.
-     *
-     * @param UserInterface $user
-     * @return void
-     */
-    public function setUser(UserInterface $user)
-    {
-        $this->user = $user;
-    }
-
-    /**
      * Returns the service alias for the user specified notification
      * method.
      *
@@ -49,7 +43,7 @@ abstract class UserPreferences implements UserPreferencesInterface
      */
     public function getNotificationMethod()
     {
-        return $this->notificationMethod;
+        return explode(',', $this->notificationMethod);
     }
 
     /**
@@ -61,7 +55,7 @@ abstract class UserPreferences implements UserPreferencesInterface
      */
     public function setNotificationMethod($method)
     {
-        $this->notificationMethod = $method;
+        $this->notificationMethod = implode(',', $method);
     }
 
     /**
@@ -79,9 +73,9 @@ abstract class UserPreferences implements UserPreferencesInterface
      * Updates the last time the user preferences object
      * was updated.
      *
-     * @param DateTime
+     * @return void
      */
-    public function updateLastUpdated()
+    public function markUpdated()
     {
         $this->lastUpdated = new DateTime();
     }
