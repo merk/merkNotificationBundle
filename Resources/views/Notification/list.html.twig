@@ -1,0 +1,20 @@
+{#
+
+ This file is part of the merkNotificationBundle package.
+
+ (c) Tim Nagel <tim@nagel.com.au>
+
+ This source file is subject to the MIT license that is bundled
+ with this source code in the file LICENSE.
+
+#}
+
+{% if notifications|length > 0 %}
+<ul>
+{% for notification in notifications %}
+    <li>{% include "merkNotificationBundle:Notification:summary.html.twig" with {"notification": notification} %}</li>
+{% endforeach %}
+</ul>
+{% else %}
+<p><strong>No notifications</strong></p>
+{% endif %}

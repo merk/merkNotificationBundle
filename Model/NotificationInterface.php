@@ -78,4 +78,18 @@ interface NotificationInterface
      * @return DateTime
      */
     function getCreatedAt();
+
+    /**
+     * Returns the route to direct to.
+     *
+     * @return string
+     */
+    function getRouteName();
+
+    /**
+     * Returns the routing parameters to be passed to the route.
+     *
+     * @return array
+     */
+    function getRouteParams();
 }

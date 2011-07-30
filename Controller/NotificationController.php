@@ -12,6 +12,7 @@
 namespace merk\NotificationBundle\Controller;
 
 use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -50,5 +51,8 @@ class NotificationController extends ContainerAware
         if (!$notification) {
             throw new NotFoundHttpException('Notification Not Found');
         }
+
+        $uri = $this->container->get('router')->generate($notification->getRouteName(), $notification->getRouteParameters());
+        return new RedirectResponse($uri);
     }
 }
