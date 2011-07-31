@@ -35,12 +35,13 @@ class Configuration
             ->children()
 
                 ->scalarNode('db_driver')->cannotBeOverwritten()->isRequired()->end()
+                ->scalarNode('model_manager_name')->defaultNull()->end()
 
                 ->arrayNode('class')->isRequired()
                     ->children()
                         ->arrayNode('model')->isRequired()
                             ->children()
-                                ->scalarNode('notification')->isRequired()->end()
+                                ->scalarNode('action')->isRequired()->end()
                                 ->scalarNode('user_preferences')->isRequired()->end()
                             ->end()
                         ->end()
@@ -51,7 +52,7 @@ class Configuration
                     ->children()
                         ->arrayNode('manager')->addDefaultsIfNotSet()
                             ->children()
-                                ->scalarNode('notification')->cannotBeEmpty()->defaultValue('merk_notification.manager.notification.default')->end()
+                                ->scalarNode('action')->cannotBeEmpty()->defaultValue('merk_notification.manager.action.default')->end()
                                 ->scalarNode('user_preferences')->cannotBeEmpty()->defaultValue('merk_notification.manager.user_preferences.default')->end()
                             ->end()
                         ->end()

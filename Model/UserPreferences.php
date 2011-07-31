@@ -14,7 +14,7 @@ namespace merk\NotificationBundle\Model;
 use Symfony\Component\Security\Core\User\UserInterface;
 use \DateTime;
 
-abstract class UserPreferences implements UserPreferencesInterface
+abstract class UserPreferences implements StandaloneUserPreferencesInterface
 {
     protected $user;
     protected $lastUpdated;
@@ -41,7 +41,7 @@ abstract class UserPreferences implements UserPreferencesInterface
      *
      * @return string
      */
-    public function getNotificationMethod()
+    public function getNotificationMethods()
     {
         return explode(',', $this->notificationMethod);
     }
@@ -53,7 +53,7 @@ abstract class UserPreferences implements UserPreferencesInterface
      * @param string $method
      * @return void
      */
-    public function setNotificationMethod($method)
+    public function setNotificationMethods(array $method)
     {
         $this->notificationMethod = implode(',', $method);
     }

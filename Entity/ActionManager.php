@@ -12,12 +12,16 @@
 namespace merk\NotificationBundle\Entity;
 
 use Doctrine\ORM\EntityManager;
+use merk\NotificationBundle\Model\ActionInterface;
+use merk\NotificationBundle\Model\ActionManager as BaseActionManager;
 use Symfony\Component\Security\Core\User\UserInterface;
-use merk\NotificationBundle\Model\NotificationInterface;
-use merk\NotificationBundle\Model\NotificationManager as BaseNotificationManager;
-use \DateTime;
 
-class NotificationManager extends BaseNotificationManager
+/**
+ * Doctrine ORM Notification Manager
+ *
+ * @author Tim Nagel <tim@nagel.com.au>
+ */
+class ActionManager extends BaseActionManager
 {
     protected $em;
     protected $repository;
@@ -30,19 +34,19 @@ class NotificationManager extends BaseNotificationManager
         $this->class      = $em->getClassMetadata($class)->name;
     }
 
-    public function getNotification($id)
+    public function getAction($id)
     {
         return $this->repository->find($id);
     }
 
-    public function getNotifications(UserInterface $user)
+    public function getActions(UserInterface $user)
     {
         return $this->repository->findBy(array('user' => $user));
     }
 
-    public function addNotification(NotificationInterface $notification)
+    public function addAction(ActionInterface $action)
     {
-        $this->em->persist($notification);
+        $this->em->persist($action);
         $this->em->flush();
     }
 

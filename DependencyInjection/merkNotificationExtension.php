@@ -27,7 +27,7 @@ class merkNotificationExtension extends Extension
     /**
      * Loads and processes configuration to configure the Container.
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      * @param array $configs
      * @param ContainerBuilder $container
      * @return void
@@ -50,8 +50,10 @@ class merkNotificationExtension extends Extension
             $loader->load(sprintf('%s.xml', $basename));
         }
 
-        $container->setParameter('merk_notification.model.notification.class', $config['class']['model']['notification']);
-        $container->setAlias('merk_notification.manager.notification', $config['service']['manager']['notification']);
+        $container->setParameter('merk_notification.model_manager_name', $config['model_manager_name']);
+
+        $container->setParameter('merk_notification.model.action.class', $config['class']['model']['action']);
+        $container->setAlias('merk_notification.manager.action', $config['service']['manager']['action']);
 
         $container->setParameter('merk_notification.model.user_preferences.class', $config['class']['model']['user_preferences']);
         $container->setAlias('merk_notification.manager.user_preferences', $config['service']['manager']['user_preferences']);

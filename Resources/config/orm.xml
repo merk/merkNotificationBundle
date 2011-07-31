@@ -14,13 +14,17 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="merk_notification.manager.notification.default" class="merk\NotificationBundle\Entity\NotificationManager" public="false">
-            <argument type="service" id="doctrine.orm.entity_manager" />
-            <argument>%merk_notification.model.notification.class%</argument>
+        <service id="merk_notification.entity_manager" factory-service="doctrine" factory-method="getEntityManager" class="Doctrine\ORM\EntityManager" public="false">
+            <argument>%merk_notification.model_manager_name%</argument>
+        </service>
+
+        <service id="merk_notification.manager.action.default" class="merk\NotificationBundle\Entity\ActionManager" public="false">
+            <argument type="service" id="merk_notification.entity_manager" />
+            <argument>%merk_notification.model.action.class%</argument>
         </service>
 
         <service id="merk_notification.manager.user_preferences.default" class="merk\NotificationBundle\Entity\UserPreferencesManager" public="false">
-            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="merk_notification.entity_manager" />
             <argument>%merk_notification.model.user_preferences.class%</argument>
             <argument type="service" id="security.context" />
         </service>

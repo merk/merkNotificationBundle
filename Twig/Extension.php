@@ -11,28 +11,28 @@
 
 namespace merk\NotificationBundle\Twig;
 
-use merk\NotificationBundle\Model\NotificationManagerInterface;
+use merk\NotificationBundle\Model\ActionManagerInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class Extension extends \Twig_Extension
 {
-    protected $notificationManager;
+    protected $actionManager;
     protected $securityContext;
 
-    public function __construct(NotificationManagerInterface $notificationManager, SecurityContextInterface $securityContext)
+    public function __construct(ActionManagerInterface $actionManager, SecurityContextInterface $securityContext)
     {
-        $this->notificationManager = $notificationManager;
+        $this->actionManager = $actionManager;
         $this->securityContext     = $securityContext;
     }
 
-    public function getNotificationCount(UserInterface $user = null)
+    public function getActionCount(UserInterface $user = null)
     {
         if (null === $user) {
             $user = $this->securityContext->getToken()->getUser();
         }
 
-        return count($this->notificationManager->getNotifications($user));
+        return count($this->actionManager->getActions($user));
     }
 
     public function getNotifications(UserInterface $user = null)
@@ -41,12 +41,12 @@ class Extension extends \Twig_Extension
             $user = $this->securityContext->getToken()->getUser();
         }
 
-        return $this->notificationManager->getNotifications($user);
+        return $this->actionManager->getActions($user);
     }
 
     public function getNotification($id)
     {
-        return $this->notificationManager->getNotification($id);
+        return $this->actionManager->getAction($id);
     }
 
     public function getGlobals()

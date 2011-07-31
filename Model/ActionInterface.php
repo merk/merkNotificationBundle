@@ -15,36 +15,28 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use DateTime;
 
 /**
- * Base Notification interface.
+ * Base Action interface.
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
-interface NotificationInterface
+interface ActionInterface
 {
     /**
-     * Returns the User the notification belongs to.
+     * Returns the User the action belongs to.
      *
      * @return UserInterface
      */
     function getUser();
 
     /**
-     * Sets the user the notification belongs to.
-     *
-     * @param UserInterface $user
-     * @return void
-     */
-    function setUser(UserInterface $user);
-
-    /**
-     * Sets the notification message.
+     * Sets the action message.
      *
      * @return string
      */
     function getMessage();
 
     /**
-     * Sets the notification message.
+     * Sets the action message.
      *
      * @param string $message
      * @return void
@@ -52,28 +44,28 @@ interface NotificationInterface
     function setMessage($message);
 
     /**
-     * Marks the notification read.
+     * Marks the action read.
      *
      * @return void
      */
     function markRead();
 
     /**
-     * Marks the notification unread.
+     * Marks the action unread.
      *
      * @return void
      */
     function markUnread();
 
     /**
-     * Returns when the notification was read.
+     * Returns when the action was read.
      *
      * @return DateTime
      */
     function getReadAt();
 
     /**
-     * Returns the date the notification was created.
+     * Returns the date the action was created.
      *
      * @return DateTime
      */

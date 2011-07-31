@@ -13,15 +13,13 @@ namespace merk\NotificationBundle\Model;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 
-abstract class NotificationManager implements NotificationManagerInterface
+abstract class ActionManager implements ActionManagerInterface
 {
-    public function createNotification(UserInterface $user)
+    public function createAction(UserInterface $user)
     {
         $class = $this->getClass();
-        $notification = new $class();
+        $action = new $class($user);
 
-        $notification->setUser($user);
-
-        return $notification;
+        return $action;
     }
 }

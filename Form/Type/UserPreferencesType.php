@@ -28,7 +28,7 @@ class UserPreferencesType extends AbstractType
 
     public function buildForm(FormBuilder $builder, array $options)
     {
-        $builder->add('notificationMethod', 'choice', array(
+        $builder->add('notificationMethods', 'choice', array(
             'choices' => $this->getNotificationOptions(),
             'multiple' => true,
             'expanded' => true,

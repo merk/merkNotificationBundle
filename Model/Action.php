@@ -14,7 +14,7 @@ namespace merk\NotificationBundle\Model;
 use Symfony\Component\Security\Core\User\UserInterface;
 use \DateTime;
 
-abstract class Notification implements NotificationInterface
+abstract class Action implements ActionInterface
 {
     protected $readAt;
     protected $user;
@@ -23,9 +23,10 @@ abstract class Notification implements NotificationInterface
     protected $routeName;
     protected $routeParams = array();
 
-    public function __construct()
+    public function __construct(UserInterface $user)
     {
         $this->createdAt = new DateTime();
+        $this->user = $user;
     }
 
     public function markRead()
@@ -51,11 +52,6 @@ abstract class Notification implements NotificationInterface
     public function setMessage($message)
     {
         $this->message = $message;
-    }
-
-    public function setUser(UserInterface $user)
-    {
-        $this->user = $user;
     }
 
     public function getUser()

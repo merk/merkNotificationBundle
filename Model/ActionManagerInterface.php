@@ -18,16 +18,15 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *
  * @author Tim Nagel <tim@nagel.com.au>
  */
-interface NotificationManagerInterface
+interface ActionManagerInterface
 {
     /**
      * Adds a new notification for the provided User.
      *
-     * @param UserInterface $user
-     * @param NotificationInterface $notification
+     * @param ActionInterface $notification
      * @return void
      */
-    function addNotification(NotificationInterface $notification);
+    function addAction(ActionInterface $action);
 
     /**
      * Gets all notifications for the provided User.
@@ -35,7 +34,7 @@ interface NotificationManagerInterface
      * @param UserInterface $user
      * @return NotificationInterface[]
      */
-    function getNotifications(UserInterface $user);
+    function getActions(UserInterface $user);
 
     /**
      * Gets a single notification by the supplied Id.
@@ -43,8 +42,20 @@ interface NotificationManagerInterface
      * @param mixed $id
      * @return NotificationInterface|null
      */
-    function getNotification($id);
+    function getAction($id);
 
-    function createNotification(UserInterface $user);
+    /**
+     * Creates a new action for the provided user.
+     *
+     * @param \Symfony\Component\Security\Core\User\UserInterface $user
+     * @return ActionInterface
+     */
+    function createAction(UserInterface $user);
+
+    /**
+     * Returns the class name for an Action
+     *
+     * @return string
+     */
     function getClass();
 }

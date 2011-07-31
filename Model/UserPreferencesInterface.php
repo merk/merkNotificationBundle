@@ -11,9 +11,6 @@
 
 namespace merk\NotificationBundle\Model;
 
-use Symfony\Component\Security\Core\User\UserInterface;
-use DateTime;
-
 /**
  * Base User Preferences interface.
  *
@@ -22,41 +19,19 @@ use DateTime;
 interface UserPreferencesInterface
 {
     /**
-     * Returns the User the notification belongs to.
+     * Returns the service aliases for the user specified notification
+     * methods.
      *
-     * @return UserInterface
+     * @return array
      */
-    function getUser();
+    function getNotificationMethods();
 
     /**
-     * Returns the service alias for the user specified notification
-     * method.
+     * Sets the service aliases for the user specified notification
+     * methods.
      *
-     * @return string
-     */
-    function getNotificationMethod();
-
-    /**
-     * Sets the service alias for the user specified notification
-     * method.
-     *
-     * @param string $method
+     * @param array $methods
      * @return void
      */
-    function setNotificationMethod($method);
-
-    /**
-     * Returns the last time the user preferences object
-     * was updated.
-     *
-     * @return DateTime
-     */
-    function getLastUpdated();
-
-    /**
-     * Increments the lastUpdated property.
-     *
-     * @return void
-     */
-    function markUpdated();
+    function setNotificationMethods(array $methods);
 }
