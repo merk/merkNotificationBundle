@@ -22,6 +22,9 @@
         <field name="routeName" column="routeName" type="string" />
         <field name="routeParams" column="routeParams" type="string" />
 
+        <field name="routeName" column="routeName" type="string" length="50" />
+        <field name="routeParams" column="routeParams" type="array" />
+
     </mapped-superclass>
 
 </doctrine-mapping>
