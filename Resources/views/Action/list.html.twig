@@ -9,11 +9,11 @@
 
 #}
 
-{% if notifications|length > 0 %}
+{% if actions|length > 0 %}
 <ul>
-{% for notification in notifications %}
-    <li>{% include "merkNotificationBundle:Notification:summary.html.twig" with {"notification": notification} %}</li>
-{% endforeach %}
+{% for action in actions %}
+    <li>{% include "merkNotificationBundle:Action:summary.html.twig" with {"action": action} %}</li>
+{% endfor %}
 </ul>
 {% else %}
 <p><strong>No notifications</strong></p>

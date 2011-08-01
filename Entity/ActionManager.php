@@ -44,7 +44,7 @@ class ActionManager extends BaseActionManager
 
     public function getActions(UserInterface $user)
     {
-        return $this->repository->findBy(array('user' => $user));
+        return $this->repository->findBy(array('user' => $user->getId()));
     }
 
     public function addAction(ActionInterface $action)
