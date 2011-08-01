@@ -26,7 +26,14 @@ interface ActionInterface
      *
      * @return UserInterface
      */
-    function getUser();
+    function getTarget();
+
+    /**
+     * Returns the User who triggered the Action
+     *
+     * @return UserInterface
+     */
+    function getActor();
 
     /**
      * Sets the action message.
@@ -79,9 +86,27 @@ interface ActionInterface
     function getRouteName();
 
     /**
+     * Sets the name of the route to use to generate the URL
+     * to identify this action.
+     *
+     * @param string $routeName
+     * @return void
+     */
+    function setRouteName($routeName);
+
+    /**
      * Returns the routing parameters to be passed to the route.
      *
      * @return array
      */
     function getRouteParams();
+
+    /**
+     * Sets the parameters needed for route generation that will be
+     * passed to the router.
+     *
+     * @param array $routeParams
+     * @return void
+     */
+    function setRouteParams(array $routeParams);
 }

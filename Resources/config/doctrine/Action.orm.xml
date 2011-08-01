@@ -14,11 +14,13 @@
                         xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                         http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <mapped-superclass name="merk\NotificationBundle\Entity\Notification">
+    <mapped-superclass name="merk\NotificationBundle\Entity\Action">
 
         <field name="message" column="message" type="string" />
         <field name="readAt" column="readAt" type="datetime" nullable="true" />
         <field name="createdAt" column="createdAt" type="datetime" />
+        <field name="routeName" column="routeName" type="string" />
+        <field name="routeParams" column="routeParams" type="string" />
 
     </mapped-superclass>
 

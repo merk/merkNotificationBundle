@@ -15,7 +15,7 @@ use merk\NotificationBundle\Model\ActionManagerInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class Extension extends \Twig_Extension
+class ActionExtension extends \Twig_Extension
 {
     protected $actionManager;
     protected $securityContext;

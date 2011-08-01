@@ -11,7 +11,7 @@
 
 namespace merk\NotificationBundle\Notifier;
 
-use merk\NotificationBundle\Model\NotificationInterface;
+use merk\NotificationBundle\Model\ActionInterface;
 use Symfony\Component\Templating\EngineInterface;
 
 class EmailNotifier implements NotifierInterface
@@ -25,8 +25,8 @@ class EmailNotifier implements NotifierInterface
         $this->templating = $templating;
     }
 
-    public function notify(NotificationInterface $notification)
+    public function notify(ActionInterface $action)
     {
-
+        die('Send an email');
     }
 }

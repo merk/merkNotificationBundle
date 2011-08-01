@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+ This file is part of the NotificationBundle package.
+
+ (c) Tim Nagel <tim@nagel.com.au>
+
+ This source file is subject to the MIT license that is bundled
+ with this source code in the file LICENSE.
+-->
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="merk_notification.user_notifier.default" class="merk\NotificationBundle\Notifier\UserNotifier">
+            <argument type="collection" /> <!-- tagged services merk_notification.notifier -->
+            <argument type="service" id="merk_notification.user_preferences.manager" />
+        </service>
+
+        <service id="merk_notification.notifier.email" class="merk\NotificationBundle\Notifier\EmailNotifier" public="false">
+            <tag name="merk_notification.notifier" alias="email" />
+            <argument type="service" id="swiftmailer.mailer" />
+            <argument type="service" id="templating" />
+        </service>
+    </services>
+
+</container>
+

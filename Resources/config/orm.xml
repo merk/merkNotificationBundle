@@ -18,9 +18,10 @@
             <argument>%merk_notification.model_manager_name%</argument>
         </service>
 
-        <service id="merk_notification.manager.action.default" class="merk\NotificationBundle\Entity\ActionManager" public="false">
+        <service id="merk_notification.action.manager.default" class="merk\NotificationBundle\Entity\ActionManager" public="false">
             <argument type="service" id="merk_notification.entity_manager" />
             <argument>%merk_notification.model.action.class%</argument>
+            <argument type="service" id="merk_notification.user_notifier" />
         </service>
 
         <service id="merk_notification.manager.user_preferences.default" class="merk\NotificationBundle\Entity\UserPreferencesManager" public="false">

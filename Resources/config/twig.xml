@@ -14,7 +14,7 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="merk_notification.twig.notifications" class="merk\NotificationBundle\Twig\Extension" public="false">
+        <service id="merk_notification.twig.action" class="merk\NotificationBundle\Twig\ActionExtension" public="false">
             <argument type="service" id="merk_notification.manager.action" />
             <argument type="service" id="security.context" />
             <tag name="twig.extension" />

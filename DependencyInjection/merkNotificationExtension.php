@@ -46,19 +46,22 @@ class merkNotificationExtension extends Extension
         }
         $loader->load(sprintf('%s.xml', $config['db_driver']));
 
-        foreach (array('twig', 'user_preferences') as $basename) {
+        foreach (array('notifier', 'twig', 'user_preferences') as $basename) {
             $loader->load(sprintf('%s.xml', $basename));
         }
 
         $container->setParameter('merk_notification.model_manager_name', $config['model_manager_name']);
 
         $container->setParameter('merk_notification.model.action.class', $config['class']['model']['action']);
-        $container->setAlias('merk_notification.manager.action', $config['service']['manager']['action']);
-
         $container->setParameter('merk_notification.model.user_preferences.class', $config['class']['model']['user_preferences']);
-        $container->setAlias('merk_notification.manager.user_preferences', $config['service']['manager']['user_preferences']);
-        $container->setParameter('merk_notification.form_type.user_preferences', 'merk_notification_user_preferences');
-        $container->setParameter('merk_notification.form_name.user_preferences', 'merk_notification_user_preferences');
-        $container->setAlias('merk_notification.form_handler.user_preferences', 'merk_notification.form_handler.user_preferences.default');
+
+        $container->setAlias('merk_notification.user_preferences.manager', $config['user_preferences']['manager']);
+        $container->setAlias('merk_notification.user_preferences.form.handler', $config['user_preferences']['form_handler']);
+        $container->setParameter('merk_notification.user_preferences.form.type', $config['user_preferences']['form_type']);
+        $container->setParameter('merk_notification.user_preferences.form.name', $config['user_preferences']['form_name']);
+
+        $container->setAlias('merk_notification.manager.action', $config['action']['manager']);
+
+        $container->setAlias('merk_notification.user_notifier', $config['user_notifier']);
     }
 }

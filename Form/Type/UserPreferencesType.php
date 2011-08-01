@@ -11,33 +11,31 @@
 
 namespace merk\NotificationBundle\Form\Type;
 
+use merk\NotificationBundle\Notifier\UserNotifierInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
 
 class UserPreferencesType extends AbstractType
 {
     private $class;
+    private $notificationManage;
 
     /**
      * @param string $class The UserPreferences class name
      */
-    public function __construct($class)
+    public function __construct($class, UserNotifierInterface $notificationManager)
     {
         $this->class = $class;
+        $this->notificationManage = $notificationManager;
     }
 
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder->add('notificationMethods', 'choice', array(
-            'choices' => $this->getNotificationOptions(),
+            'choices' => $this->notificationManage->getNotifierOptions(),
             'multiple' => true,
             'expanded' => true,
         ));
-    }
-
-    protected function getNotificationOptions()
-    {
-        return array('test' => 'hallo');
     }
 
     public function getDefaultOptions(array $options)

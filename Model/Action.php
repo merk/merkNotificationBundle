@@ -17,16 +17,18 @@ use \DateTime;
 abstract class Action implements ActionInterface
 {
     protected $readAt;
-    protected $user;
+    protected $target;
+    protected $actor;
     protected $message;
     protected $createdAt;
     protected $routeName;
-    protected $routeParams = array();
+    protected $routeParams;
 
-    public function __construct(UserInterface $user)
+    public function __construct(UserInterface $target, UserInterface $actor = null)
     {
         $this->createdAt = new DateTime();
-        $this->user = $user;
+        $this->target = $target;
+        $this->actor = $actor;
     }
 
     public function markRead()
@@ -54,9 +56,14 @@ abstract class Action implements ActionInterface
         $this->message = $message;
     }
 
-    public function getUser()
+    public function getTarget()
     {
-        return $this->user;
+        return $this->target;
+    }
+
+    public function getActor()
+    {
+        return $this->actor;
     }
 
     public function getCreatedAt()
@@ -69,8 +76,18 @@ abstract class Action implements ActionInterface
         return $this->routeName;
     }
 
+    public function setRouteName($routeName)
+    {
+        $this->routeName = $routeName;
+    }
+
     public function getRouteParams()
     {
-        return $this->routeParams;
+        return explode(',', $this->routeParams);
+    }
+
+    public function setRouteParams(array $routeParams)
+    {
+        $this->routeParams = implode(',', $routeParams);
     }
 }

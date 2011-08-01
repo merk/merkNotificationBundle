@@ -48,18 +48,24 @@ class Configuration
                     ->end()
                 ->end()
 
-                ->arrayNode('service')->addDefaultsIfNotSet()
+                ->arrayNode('user_preferences')
+                    ->addDefaultsIfNotSet()
                     ->children()
-                        ->arrayNode('manager')->addDefaultsIfNotSet()
-                            ->children()
-                                ->scalarNode('action')->cannotBeEmpty()->defaultValue('merk_notification.manager.action.default')->end()
-                                ->scalarNode('user_preferences')->cannotBeEmpty()->defaultValue('merk_notification.manager.user_preferences.default')->end()
-                            ->end()
-                        ->end()
+                        ->scalarNode('manager')->cannotBeEmpty()->defaultValue('merk_notification.manager.user_preferences.default')->end()
+                        ->scalarNode('form_type')->cannotBeEmpty()->defaultValue('merk_notification_user_preferences')->end()
+                        ->scalarNode('form_name')->cannotBeEmpty()->defaultValue('merk_notification_user_preferences_form')->end()
+                        ->scalarNode('form_handler')->cannotBeEmpty()->defaultValue('merk_notification.user_preferences.form.handler.default')->end()
                     ->end()
                 ->end()
 
+                ->arrayNode('action')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('manager')->cannotBeEmpty()->defaultValue('merk_notification.action.manager.default')->end()
+                    ->end()
+                ->end()
 
+                ->scalarNode('user_notifier')->cannotBeEmpty()->defaultValue('merk_notification.user_notifier.default')->end()
             ->end()
         ->end();
 

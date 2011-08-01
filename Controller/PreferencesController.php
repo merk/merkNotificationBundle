@@ -24,9 +24,9 @@ class PreferencesController extends ContainerAware
 {
     public function editAction()
     {
-        $preferences = $this->container->get('merk_notification.manager.user_preferences')->getPreferences();
-        $form = $this->container->get('merk_notification.form.user_preferences');
-        $formHandler = $this->container->get('merk_notification.form_handler.user_preferences');
+        $preferences = $this->container->get('merk_notification.user_preferences.manager')->getPreferences();
+        $form = $this->container->get('merk_notification.user_preferences.form');
+        $formHandler = $this->container->get('merk_notification.user_preferences.form.handler');
 
         $process = $formHandler->process($preferences);
         if ($process) {
