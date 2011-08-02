@@ -13,10 +13,11 @@ namespace merk\NotificationBundle\Entity;
 
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Security\Core\User\UserInterface;
+use merk\NotificationBundle\Model\StandaloneUserPreferencesInterface;
 use merk\NotificationBundle\Model\UserPreferencesInterface;
 use merk\NotificationBundle\Model\UserPreferencesManager as BaseUserPreferencesManager;
 use Symfony\Component\Security\Core\SecurityContextInterface;
-use \DateTime;
+use DateTime;
 
 class UserPreferencesManager extends BaseUserPreferencesManager
 {
@@ -78,7 +79,10 @@ class UserPreferencesManager extends BaseUserPreferencesManager
      */
     public function update(UserPreferencesInterface $preferences)
     {
-        $preferences->markUpdated();
+        if ($preferences instanceof StandaloneUserPreferencesInterface) {
+            $preferences->markUpdated();
+        }
+
         $this->em->persist($preferences);
         $this->em->flush();
     }

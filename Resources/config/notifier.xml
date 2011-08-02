@@ -22,7 +22,7 @@
         <service id="merk_notification.notifier.email" class="merk\NotificationBundle\Notifier\EmailNotifier" public="false">
             <tag name="merk_notification.notifier" alias="email" />
             <argument type="service" id="swiftmailer.mailer" />
-            <argument type="service" id="templating" />
+            <!-- <argument type="service" id="templating" /> -->
         </service>
     </services>
 

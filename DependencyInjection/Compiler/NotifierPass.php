@@ -25,7 +25,7 @@ class NotifierPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {
-        if (!$container->hasDefinition('merk_notification.user_notifier')) {
+        if (!$container->hasAlias('merk_notification.user_notifier')) {
             return;
         }
 
@@ -40,6 +40,6 @@ class NotifierPass implements CompilerPassInterface
             }
         }
 
-        $container->getDefinition('merk_notification.user_notifier')->replaceArgument(0, $notifiers);
+        $container->findDefinition('merk_notification.user_notifier')->replaceArgument(0, $notifiers);
     }
 }

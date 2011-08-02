@@ -18,7 +18,7 @@ use Symfony\Component\Form\FormBuilder;
 class UserPreferencesType extends AbstractType
 {
     private $class;
-    private $notificationManage;
+    private $notificationManager;
 
     /**
      * @param string $class The UserPreferences class name
@@ -26,13 +26,13 @@ class UserPreferencesType extends AbstractType
     public function __construct($class, UserNotifierInterface $notificationManager)
     {
         $this->class = $class;
-        $this->notificationManage = $notificationManager;
+        $this->notificationManager = $notificationManager;
     }
 
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder->add('notificationMethods', 'choice', array(
-            'choices' => $this->notificationManage->getNotifierOptions(),
+            'choices' => $this->notificationManager->getNotifierOptions(),
             'multiple' => true,
             'expanded' => true,
         ));

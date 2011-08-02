@@ -19,7 +19,7 @@ class EmailNotifier implements NotifierInterface
     private $mailer;
     private $templating;
 
-    public function __construct(\Swift_Mailer $mailer, EngineInterface $templating)
+    public function __construct(\Swift_Mailer $mailer, EngineInterface $templating = null)
     {
         $this->mailer = $mailer;
         $this->templating = $templating;

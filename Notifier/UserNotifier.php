@@ -29,6 +29,7 @@ class UserNotifier implements UserNotifierInterface
 
     public function __construct(array $notifiers, UserPreferencesManagerInterface $userPreferencesManager)
     {
+        //var_dump($notifiers); die;
         foreach ($notifiers as $alias => $notifier) {
             if (!$notifier instanceof NotifierInterface) {
                 throw new InvalidArgumentException(sprintf(
@@ -49,7 +50,7 @@ class UserNotifier implements UserNotifierInterface
      */
     public function getNotifierOptions()
     {
-        return array_keys($this->notifiers);
+        return array_combine(array_keys($this->notifiers), array_keys($this->notifiers));
     }
 
     /**
@@ -62,9 +63,7 @@ class UserNotifier implements UserNotifierInterface
     {
         $prefs = $this->userPreferencesManager->findByUser($action->getTarget());
 
-        die('hello');
-
-        foreach ($prefs AS $pref) {
+        foreach ($prefs->getNotificationMethods() AS $pref) {
             $this->notifiers[$pref]->notify($action);
         }
     }

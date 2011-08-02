@@ -11,7 +11,7 @@
 
 namespace merk\NotificationBundle\Notifier;
 
-use merk\NotificationBundle\Model\NotificationInterface;
+use merk\NotificationBundle\Model\ActionInterface;
 
 interface NotifierInterface
 {
@@ -21,5 +21,5 @@ interface NotifierInterface
      * @param NotificationInterface $nofitication
      * @return void
      */
-    function notify(NotificationInterface $nofitication);
+    function notify(ActionInterface $nofitication);
 }
