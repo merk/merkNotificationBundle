@@ -13,24 +13,23 @@ This example is adding a notification for a user in a controller.
 ```php
 
     $user = $object->getOwner(); // $user should be populated with a UserInterface object.
-    $notification = $this->container->get('merk_notification.creator.notification')->createNotification($user);
-
     $actor = $this->container->get('security.context')->getToken()->getUser();
-    $notification->setActor($actor);
-    $notification->setSubject($object);
-    $notification->setMessage("%s acted on your object");
+    $action = $this->container->get('merk_notification.action.manager')->createAction($user, $actor);
 
-    $this->container->get('merk_notification.manager.notification')->addNotification($notification);
+    $action->setSubject($object);
+    $action->setMessage("Something was done to your object");
+
+    $this->container->get('merk_notification.action.manager')->addAction($action);
 ```
 
 ### Display of notifications in a Twig template
 ```jinga
 
-    You have {{ merk_notification.notification_count }} notifications.
+    You have {{ merk_notification.action_count }} notifications.
 
     <ul>
-    {{ for notification in merk_notification.notifications }}
-        <li>{{ notification.message|format(notification.actor) }}</li>
+    {{ for action in merk_notification.actions }}
+        <li>{{ action.message }}</li>
     {{ endfor }}
     </ul>
 ```
