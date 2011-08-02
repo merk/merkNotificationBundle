@@ -71,7 +71,7 @@ abstract class Action implements ActionInterface
         return $this->createdAt;
     }
 
-    public function setRoute($name, $params=array())
+    public function setRoute($name, array $params = array())
     {
         $this->routeName = $name;
         $this->routeParams = $params;
