@@ -24,7 +24,8 @@ class ActionController extends ContainerAware
 {
     public function listAction()
     {
-        $actions = $this->container->get('merk_notification.manager.action')->getAction();
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $actions = $this->container->get('merk_notification.manager.action')->getActions($user);
 
         return $this->container->get('templating')->renderResponse('merkNotificationBundle:Action:list.html.twig', array(
             'actions' => $actions,
