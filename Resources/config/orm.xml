@@ -21,7 +21,7 @@
         <service id="merk_notification.action.manager.default" class="merk\NotificationBundle\Entity\ActionManager" public="false">
             <argument type="service" id="merk_notification.entity_manager" />
             <argument>%merk_notification.model.action.class%</argument>
-            <argument type="service" id="merk_notification.user_notifier" />
+            <argument type="service" id="event_dispatcher" />
         </service>
 
         <service id="merk_notification.manager.user_preferences.default" class="merk\NotificationBundle\Entity\UserPreferencesManager" public="false">

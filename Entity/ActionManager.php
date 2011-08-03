@@ -14,7 +14,7 @@ namespace merk\NotificationBundle\Entity;
 use Doctrine\ORM\EntityManager;
 use merk\NotificationBundle\Model\ActionInterface;
 use merk\NotificationBundle\Model\ActionManager as BaseActionManager;
-use merk\NotificationBundle\Notifier\UserNotifierInterface;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -24,17 +24,18 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class ActionManager extends BaseActionManager
 {
+    protected $dispatcher;
     protected $em;
     protected $repository;
     protected $class;
     protected $notifier;
 
-    public function __construct(EntityManager $em, $class, UserNotifierInterface $notifier)
+    public function __construct(EntityManager $em, $class, EventDispatcher $dispatcher)
     {
+        $this->dispatcher = $dispatcher;
         $this->em         = $em;
         $this->repository = $em->getRepository($class);
         $this->class      = $em->getClassMetadata($class)->name;
-        $this->notifier   = $notifier;
     }
 
     public function getAction($id)
@@ -52,7 +53,7 @@ class ActionManager extends BaseActionManager
         $this->em->persist($action);
         $this->em->flush();
 
-        $this->notifier->send($action);
+        $this->dispatcher->dispatch('user.notification', $action);
     }
 
     public function getClass()

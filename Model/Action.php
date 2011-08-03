@@ -11,10 +11,11 @@
 
 namespace merk\NotificationBundle\Model;
 
+use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\Security\Core\User\UserInterface;
 use \DateTime;
 
-abstract class Action implements ActionInterface
+abstract class Action extends Event implements ActionInterface
 {
     protected $readAt;
     protected $target;
