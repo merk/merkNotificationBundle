@@ -25,21 +25,23 @@ use merk\NotificationBundle\Features\Entity\Post;
 class FeatureContext extends BehatContext //MinkContext if you want to test web
 {
     /**
-     * @Given /^SiteOwner creates a new post named "([^"]*)"$/
+     * @Given /^"([^"]*)" creates a new post named "([^"]*)"$/
      */
-    public function siteOwnerCreatesANewPostNamed($name)
+    public function createsANewPostNamed($author, $name)
     {
         $om = $this->getContainer()->get('doctrine.orm.default_entity_manager');
         $post = new Post();
         $post->setName($name);
         $om->persist($post);
         $om->flush();
+
+        throw new \Exception('add author support');
     }
 
     /**
-     * @Given /^the SiteOwner publishes "([^"]*)"$/
+     * @Given /^the "([^"]*)" publishes the post "([^"]*)"$/
      */
-    public function theSiteOwnerPublishes($argument1)
+    public function thePublishesThePost($author, $postName)
     {
         throw new PendingException();
     }
@@ -53,89 +55,41 @@ class FeatureContext extends BehatContext //MinkContext if you want to test web
     }
 
     /**
-     * @Given /^a reference to the new post is persisted as the object of the notification$/
+     * @Given /^a reference to "([^"]*)" is persisted as the "([^"]*)" of the notification$/
      */
-    public function aReferenceToTheNewPostIsPersistedAsTheObjectOfTheNotification()
+    public function aReferenceToIsPersistedAsTheOfTheNotification($object, $part)
     {
         throw new PendingException();
     }
 
     /**
-     * @Given /^publish is persisted as the verb of the notification$/
+     * @Given /^"([^"]*)" is persisted as the verb of the notification$/
      */
-    public function publishIsPersistedAsTheVerbOfTheNotification()
+    public function isPersistedAsTheVerbOfTheNotification($argument1)
     {
         throw new PendingException();
     }
 
     /**
-     * @Given /^a reference to SiteOwner is persisted as the actor of the notification$/
+     * @Given /^the "([^"]*)" updates the post "([^"]*)"$/
      */
-    public function aReferenceToSiteOwnerIsPersistedAsTheActorOfTheNotification()
+    public function theUpdatesThePost($author, $argument2)
     {
         throw new PendingException();
     }
 
     /**
-     * @Given /^the SiteOwner updates "([^"]*)"$/
+     * @Given /^"([^"]*)" creates a comment on the post "([^"]*)"$/
      */
-    public function theSiteOwnerUpdates($argument1)
+    public function createsACommentOnThePost($author, $postName)
     {
         throw new PendingException();
     }
 
     /**
-     * @Given /^update is persisted as the verb of the notification$/
+     * @Given /^"([^"]*)" deletes the post "([^"]*)"$/
      */
-    public function updateIsPersistedAsTheVerbOfTheNotification()
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @Given /^SiteGuest creates a comment on "([^"]*)"$/
-     */
-    public function siteGuestCreatesACommentOn($argument1)
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @Given /^a reference to the new comment is persisted as the object of the notification$/
-     */
-    public function aReferenceToTheNewCommentIsPersistedAsTheObjectOfTheNotification()
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @Given /^add is persisted as the verb of the notification$/
-     */
-    public function addIsPersistedAsTheVerbOfTheNotification()
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @Given /^a reference to SiteGuest is persisted as the actor of the notification$/
-     */
-    public function aReferenceToSiteGuestIsPersistedAsTheActorOfTheNotification()
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @Given /^SiteOwner deletes "([^"]*)"$/
-     */
-    public function siteOwnerDeletes($argument1)
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @Given /^delete is persisted as the verb of the notification$/
-     */
-    public function deleteIsPersistedAsTheVerbOfTheNotification()
+    public function deletesThePost($author, $postName)
     {
         throw new PendingException();
     }
