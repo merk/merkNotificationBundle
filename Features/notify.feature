@@ -28,7 +28,9 @@ Scenario: Trigger notification that "SiteGuest" commented on a post
     And a reference to "SiteGuest" is persisted as the "actor" of the notification
 
 Scenario: Trigger notification that "SiteOwner" deletes a post
-    Given "SiteOwner" deletes the post "My New Post"
+    Given "SiteOwner" creates a new post named "My New Post"
+    And the "SiteOwner" publishes the post "My New Post"
+    And "SiteOwner" deletes the post "My New Post"
     Then a notification is created
     And a reference to "My New Post" is persisted as the "object" of the notification
     And "delete" is persisted as the verb of the notification
