@@ -30,6 +30,7 @@ class Post
 
     /**
      * @ORM\Column(type="boolean")
+     * @Notify(trigger="true", object="Post", verb="publish", actor="author")
      */
     protected $published = false;
 
