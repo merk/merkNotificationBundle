@@ -30,7 +30,7 @@ class FeatureContext extends BehatContext //MinkContext if you want to test web
      */
     public function createUsers($event)
     {
-        $om = $this->getContainer()->get('doctrine.orm.default_entity_manager');
+        $om = $this->getObjectManager();
         $user = new User();
         $user->setUsername('SiteOwner');
         $om->persist($user);
@@ -57,7 +57,7 @@ class FeatureContext extends BehatContext //MinkContext if you want to test web
      */
     public function createsANewPostNamed($author, $name)
     {
-        $om = $this->getContainer()->get('doctrine.orm.default_entity_manager');
+        $om = $this->getObjectManager();
         $qb = $om->createQueryBuilder()
             ->add('select', 'u')
             ->add('from', 'merk\NotificationBundle\Features\Entity\User u')
@@ -76,7 +76,15 @@ class FeatureContext extends BehatContext //MinkContext if you want to test web
      */
     public function thePublishesThePost($author, $postName)
     {
-        throw new PendingException();
+        $om = $this->getObjectManager();
+        $qb = $om->createQueryBuilder()
+            ->add('select', 'p')
+            ->add('from', 'merk\NotificationBundle\Features\Entity\Post p')
+            ->add('where', 'p.name = :name')
+            ->setParameter('name', $postName);
+        $post = $qb->getQuery()->getSingleResult();
+        $post->publish();
+        $om->flush();
     }
 
     /**
@@ -125,5 +133,10 @@ class FeatureContext extends BehatContext //MinkContext if you want to test web
     public function deletesThePost($author, $postName)
     {
         throw new PendingException();
+    }
+
+    protected function getObjectManager()
+    {
+        return $this->getContainer()->get('doctrine.orm.default_entity_manager');
     }
 }
