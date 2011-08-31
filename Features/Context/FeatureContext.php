@@ -11,6 +11,7 @@ use Behat\Gherkin\Node\PyStringNode,
 Behat\Gherkin\Node\TableNode;
 
 use merk\NotificationBundle\Features\Entity\Post;
+use merk\NotificationBundle\Features\Entity\User;
 
 //
 // Require 3rd-party libraries here:
@@ -25,17 +26,49 @@ use merk\NotificationBundle\Features\Entity\Post;
 class FeatureContext extends BehatContext //MinkContext if you want to test web
 {
     /**
+     * @BeforeScenario
+     */
+    public function createUsers($event)
+    {
+        $om = $this->getContainer()->get('doctrine.orm.default_entity_manager');
+        $user = new User();
+        $user->setUsername('SiteOwner');
+        $om->persist($user);
+        $user = new User();
+        $user->setUsername('SiteGuest');
+        $om->persist($user);
+        $om->flush();
+    }
+
+    /**
+     * @AfterScenario
+     */
+    public function emptyORMTables($event)
+    {
+        $em = $this->getContainer()->get('doctrine.orm.default_entity_manager');
+        $query = $em->createQuery('DELETE merk\NotificationBundle\Features\Entity\Post p');
+        $query->getResult();
+        $query = $em->createQuery('DELETE merk\NotificationBundle\Features\Entity\User u');
+        $query->getResult();
+    }
+
+    /**
      * @Given /^"([^"]*)" creates a new post named "([^"]*)"$/
      */
     public function createsANewPostNamed($author, $name)
     {
         $om = $this->getContainer()->get('doctrine.orm.default_entity_manager');
+        $qb = $om->createQueryBuilder()
+            ->add('select', 'u')
+            ->add('from', 'merk\NotificationBundle\Features\Entity\User u')
+            ->add('where', 'u.username = :username')
+            ->setParameter('username', $author);
+        $author = $qb->getQuery()->getSingleResult();
         $post = new Post();
         $post->setName($name);
+        $post->setAuthor($author);
         $om->persist($post);
         $om->flush();
-
-        throw new \Exception('add author support');
     }
 
     /**

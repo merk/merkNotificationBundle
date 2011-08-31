@@ -18,6 +18,12 @@ class Post
     protected $id;
 
     /**
+     * @ORM\OneToOne(targetEntity="merk\NotificationBundle\Features\Entity\User")
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     */
+    protected $author;
+
+    /**
      * @ORM\Column(type="string", length=100)
      */
     protected $name;
@@ -50,5 +56,15 @@ class Post
     public function isPublished()
     {
         return $this->published;
+    }
+
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+    }
+
+    public function getAuthor()
+    {
+        return $this->author;
     }
 }
