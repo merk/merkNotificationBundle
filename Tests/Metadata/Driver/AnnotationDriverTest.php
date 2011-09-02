@@ -10,6 +10,9 @@ class AnnotationDriverTest extends \PHPUnit_Framework_TestCase
 {
     public function testLoadMetadataFromClass()
     {
+        $driver = new AnnotationDriver(new AnnotationReader());
 
+        $metadata = $driver->loadMetadataForClass(new \ReflectionClass('merk\NotificationBundle\Tests\Fixture\Post'));
+        $a = 0;
     }
 }
