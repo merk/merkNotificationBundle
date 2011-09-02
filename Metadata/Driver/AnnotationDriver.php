@@ -6,7 +6,7 @@ use merk\NotificationBundle\Annotation\Notify;
 use merk\NotificationBundle\Metadata\ClassMetadata;
 use Metadata\Driver\DriverInterface;
 use \ReflectionClass;
-use \ReflectionMethod;
+use \ReflectionProperty;
 
 /**
  * @author Richard D Shank <develop@zestic.com>
@@ -22,7 +22,21 @@ class AnnotationDriver implements DriverInterface
 
     public function loadMetadataForClass(ReflectionClass $reflection)
     {
-        $metadata = new ClassMetadata($reflection->getName());
+        $reflectionName = $reflection->getName();
+        $metadata = new ClassMetadata($reflectionName);
+
+        foreach ($reflection->getProperties(ReflectionProperty::IS_PUBLIC | ReflectionProperty::IS_PROTECTED) as $property) {
+            // check if the method was defined on this class
+            if ($property->getDeclaringClass()->getName() !== $reflectionName) {
+                continue;
+            }
+
+            $annotations = $this->reader->getPropertyAnnotations($property);
+
+            if ($annotations && null !== $methodMetadata = $this->converter->convertMethodAnnotations($method, $annotations)) {
+                $metadata->addMethodMetadata($methodMetadata);
+            }
+        }
 
         return $metadata;
     }
