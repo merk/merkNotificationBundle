@@ -3,6 +3,7 @@
 namespace merk\NotificationBundle\Annotation;
 
 /**
+ * @Annotation
  * @author Richard Shank <develop@zestic.com>
  */
 final class Notify
