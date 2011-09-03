@@ -33,8 +33,8 @@ class AnnotationDriver implements DriverInterface
 
             $annotations = $this->reader->getPropertyAnnotations($property);
 
-            if ($annotations && null !== $methodMetadata = $this->converter->convertMethodAnnotations($method, $annotations)) {
-                $metadata->addMethodMetadata($methodMetadata);
+            if ($annotations) {
+                $metadata->addPropteryMetadata($property);
             }
         }
 
