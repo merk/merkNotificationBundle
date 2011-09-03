@@ -2,6 +2,8 @@
 
 namespace merk\NotificationBundle\Tests\Fixture;
 
+use merk\NotificationBundle\Annotation\Notify;
+
 class Post
 {
     /**
