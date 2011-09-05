@@ -12,10 +12,13 @@ use merk\NotificationBundle\Metadata\Driver\AnnotationDriver;
 class NotificationSubscriber implements EventSubscriber
 {
     protected $notificationManager;
+    protected $driver;
 
     public function __construct($notificationManager = null)
     {
         $this->notificationManager = $notificationManager;
+        $this->driver = new AnnotationDriver(new AnnotationReader());
+
     }
 
     public function getSubscribedEvents()
@@ -25,22 +28,19 @@ class NotificationSubscriber implements EventSubscriber
 
     public function onFlush(OnFlushEventArgs $eventArgs)
     {
-        $driver = new AnnotationDriver(new AnnotationReader());
-
         $em = $eventArgs->getEntityManager();
         $uow = $em->getUnitOfWork();
         
         foreach ($uow->getScheduledEntityInsertions() AS $entity) {
-            $metadata = $driver->loadMetadataForClass(new \ReflectionClass($entity));
-            $a = 0;
+            $this->process($entity);
         }
 
         foreach ($uow->getScheduledEntityUpdates() AS $entity) {
-
+            $this->process($entity);
         }
 
         foreach ($uow->getScheduledEntityDeletions() AS $entity) {
-
+            $this->process($entity);
         }
 
         foreach ($uow->getScheduledCollectionDeletions() AS $col) {
@@ -51,5 +51,22 @@ class NotificationSubscriber implements EventSubscriber
 
         }
 
+    }
+
+    protected function process($model)
+    {
+        if (!$metadata = $this->driver->loadMetadataForClass(new \ReflectionClass($model))) {
+            return;
+        }
+        foreach ($metadata->propertyMetadata as $property) {
+            if ($this->triggerNotification($property->trigger, $property->reflection->getValue($model))) {
+                
+            }
+        }
+    }
+
+    protected function triggerNotification($trigger, $value)
+    {
+        return eval("return \$value == " . $trigger . ';');
     }
 }
