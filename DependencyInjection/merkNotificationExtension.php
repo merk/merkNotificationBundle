@@ -46,7 +46,7 @@ class merkNotificationExtension extends Extension
         }
         $loader->load(sprintf('%s.xml', $config['db_driver']));
 
-        foreach (array('notifier', 'twig', 'user_preferences') as $basename) {
+        foreach (array('listener', 'notifier', 'twig', 'user_preferences') as $basename) {
             $loader->load(sprintf('%s.xml', $basename));
         }
 
