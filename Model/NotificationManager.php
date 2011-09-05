@@ -18,14 +18,18 @@ class NotificationManager implements NotificationManagerInterface
         $this->dispatcher = $dispatcher;
     }
 
-    public function createNotification()
+    public function createNotification(array $data)
     {
-        return new Notification();
+        $notification = new Notification();
+        // TODO:  move data into Notification
+
+        return $notification;
     }
 
     public function trigger(PropertyMetadata $property, $model)
     {
-        $notification = $this->createNotification();
+        $data = array(); // TODO: this is built from the information provided by $property and $model
+        $notification = $this->createNotification($data);
         $this->persistNotification($notification);
     }
 
