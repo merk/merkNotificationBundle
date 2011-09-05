@@ -60,7 +60,7 @@ class NotificationSubscriber implements EventSubscriber
         }
         foreach ($metadata->propertyMetadata as $property) {
             if ($this->triggerNotification($property->trigger, $property->reflection->getValue($model))) {
-                
+                $this->notificationManager->trigger($property, $model);
             }
         }
     }
