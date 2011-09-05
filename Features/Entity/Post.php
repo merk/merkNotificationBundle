@@ -3,6 +3,7 @@
 namespace merk\NotificationBundle\Features\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use merk\NotificationBundle\Annotation\Notify;
 
 /**
  * @ORM\Entity
