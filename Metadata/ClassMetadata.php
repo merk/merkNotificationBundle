@@ -1,6 +1,7 @@
 <?php
 namespace merk\NotificationBundle\Metadata;
 
+use merk\NotificationBundle\Metadata\PropertyMetadata;
 use Metadata\ClassMetadata as BaseClassMetadata;
 
 /**

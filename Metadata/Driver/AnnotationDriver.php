@@ -4,6 +4,7 @@ namespace merk\NotificationBundle\Metadata\Driver;
 use Doctrine\Common\Annotations\Reader;
 use merk\NotificationBundle\Annotation\Notify;
 use merk\NotificationBundle\Metadata\ClassMetadata;
+use merk\NotificationBundle\Metadata\PropertyMetadata;
 use Metadata\Driver\DriverInterface;
 use \ReflectionClass;
 use \ReflectionProperty;
@@ -23,7 +24,7 @@ class AnnotationDriver implements DriverInterface
     public function loadMetadataForClass(ReflectionClass $reflection)
     {
         $reflectionName = $reflection->getName();
-        $metadata = new ClassMetadata($reflectionName);
+        $metadata = null;
 
         foreach ($reflection->getProperties(ReflectionProperty::IS_PUBLIC | ReflectionProperty::IS_PROTECTED) as $property) {
             // check if the method was defined on this class
@@ -34,7 +35,19 @@ class AnnotationDriver implements DriverInterface
             $annotations = $this->reader->getPropertyAnnotations($property);
 
             if ($annotations) {
-                $metadata->addPropteryMetadata($property);
+                foreach ($annotations as $annotation) {
+                    if ($annotation instanceof Notify) {
+                        $metadata = $metadata ? $metadata : new ClassMetadata($reflectionName);
+                        $propertyMetadata = new PropertyMetadata($reflectionName, $property->getName());
+                        $propertyMetadata->author = $annotation->author;
+                        $propertyMetadata->object = $annotation->object;
+                        $propertyMetadata->target = $annotation->target;
+                        $propertyMetadata->trigger = $annotation->trigger;
+                        $propertyMetadata->verb = $annotation->verb;
+
+                        $metadata->addPropertyMetadata($propertyMetadata);
+                    }
+                }
             }
         }
 
