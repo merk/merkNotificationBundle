@@ -11,9 +11,9 @@
 
 namespace merk\NotificationBundle\Entity;
 
-use merk\NotificationBundle\Model\Action as BaseAction;
+use merk\NotificationBundle\Model\Notification as BaseNotification;
 
-abstract class Action extends BaseAction
+abstract class Notification extends BaseNotification
 {
 
 }

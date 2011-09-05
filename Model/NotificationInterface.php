@@ -18,20 +18,35 @@ use DateTime;
  * Base Action interface.
  *
  * @author Tim Nagel <tim@nagel.com.au>
+ * @author Richard Shank <develop@zestic.com>
  */
-interface ActionInterface
+interface NotificationInterface
 {
+    /**
+     * Return the object of the notification
+     *
+     * @return object instance
+     */
+    public function getObject();
+
+    /**
+     * Return the action of the notification
+     * 
+     * @return string
+     */
+    public function getVerb();
+
     /**
      * Returns the User the action belongs to.
      *
-     * @return UserInterface
+     * @return Symfony\Component\Security\Core\User\UserInterface
      */
     function getTarget();
 
     /**
      * Returns the User who triggered the Action
      *
-     * @return UserInterface
+     * @return Symfony\Component\Security\Core\User\UserInterface
      */
     function getActor();
 

@@ -12,15 +12,20 @@
 namespace merk\NotificationBundle\Model;
 
 use Symfony\Component\EventDispatcher\Event;
-use Symfony\Component\Security\Core\User\UserInterface;
 use \DateTime;
 
-abstract class Action extends Event implements ActionInterface
+/**
+ * @author Tim Nagel <tim@nagel.com.au>
+ * @author Richard D Shank <develop@zestic.com>
+ */
+class Notification extends Event implements NotificationInterface
 {
     protected $readAt;
     protected $target;
     protected $actor;
     protected $message;
+    protected $object;
+    protected $verb;
     protected $createdAt;
     protected $routeName;
     protected $routeParams;
@@ -55,6 +60,16 @@ abstract class Action extends Event implements ActionInterface
     public function setMessage($message)
     {
         $this->message = $message;
+    }
+
+    public function getObject()
+    {
+        return $this->object;
+    }
+
+    public function getVerb()
+    {
+        return $this->verb;
     }
 
     public function getTarget()
