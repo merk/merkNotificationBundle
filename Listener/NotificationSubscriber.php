@@ -32,15 +32,15 @@ class NotificationSubscriber implements EventSubscriber
         $uow = $em->getUnitOfWork();
         
         foreach ($uow->getScheduledEntityInsertions() AS $entity) {
-            $this->process($entity);
+            $this->process($entity, 'insert');
         }
 
         foreach ($uow->getScheduledEntityUpdates() AS $entity) {
-            $this->process($entity);
+            $this->process($entity, 'update');
         }
 
         foreach ($uow->getScheduledEntityDeletions() AS $entity) {
-            $this->process($entity);
+            $this->process($entity, 'delete');
         }
 
         foreach ($uow->getScheduledCollectionDeletions() AS $col) {
@@ -53,7 +53,7 @@ class NotificationSubscriber implements EventSubscriber
 
     }
 
-    protected function process($model)
+    protected function process($model, $action)
     {
         if (!$metadata = $this->driver->loadMetadataForClass(new \ReflectionClass($model))) {
             return;
