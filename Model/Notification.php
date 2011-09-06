@@ -30,11 +30,9 @@ class Notification extends Event implements NotificationInterface
     protected $routeName;
     protected $routeParams;
 
-    public function __construct(UserInterface $target, UserInterface $actor = null)
+    public function __construct(array $data = array())
     {
         $this->createdAt = new DateTime();
-        $this->target = $target;
-        $this->actor = $actor;
     }
 
     public function markRead()
