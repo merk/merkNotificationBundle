@@ -18,7 +18,6 @@ abstract class NotificationSubscriber implements EventSubscriber
     {
         $this->container = $container;
         $this->driver = new AnnotationDriver(new AnnotationReader());
-
     }
 
     public function getSubscribedEvents()
@@ -26,7 +25,7 @@ abstract class NotificationSubscriber implements EventSubscriber
         return array('onFlush');
     }
 
-    protected function process($model, $action)
+    protected function process($model, $action = null)
     {
         if (!$metadata = $this->driver->loadMetadataForClass(new \ReflectionClass($model))) {
             return;
