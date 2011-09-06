@@ -7,17 +7,10 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * @author Richard D Shank <develop@zestic.com>
  */
-class NotificationListener implements EventSubscriberInterface
+class NotificationListener
 {
-    static public function getSubscribedEvents()
+    public function onNotification(NotificationInterface $notification)
     {
-        return array(
-            'merk_notification.notification' => 'onNotification',
-        );
-    }
 
-    public function onNotification(NotifcationInterface $action)
-    {
-        $a = 0;
     }
 }

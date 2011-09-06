@@ -2,12 +2,11 @@
 namespace merk\NotificationBundle\EventListener;
 
 use merk\NotificationBundle\Model\NotificationInterface;
-use merk\NotificationBundle\EventListener\NotificationListener;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+
 /**
  * @author Richard D Shank <develop@zestic.com>
  */
-class UserSMSNotificationListener extends NotificationListener
+class UserSMSNotificationListener
 {
     protected $smsService;
     protected $userPreferencesManager;
@@ -18,11 +17,11 @@ class UserSMSNotificationListener extends NotificationListener
         $this->smsService = $smsService;
     }
 
-    public function onNotification(ActionInterface $action)
+    public function onNotification(NotificationInterface $notification)
     {
-        $user = $action->getTarget();
+        $user = $notification->getTarget();
         if ($this->userPreferencesManager->userHasPreference($user, 'sms')) {
-            $this->smsService->sendTxt($user->phoneNumber, 'Text from your favorite site', $action->getMessage());
+            $this->smsService->sendTxt($user->phoneNumber, 'Text from your favorite site', $notification->getMessage());
         }
     }
 }

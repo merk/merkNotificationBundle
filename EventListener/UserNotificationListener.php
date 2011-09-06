@@ -2,11 +2,10 @@
 namespace merk\NotificationBundle\EventListener;
 
 use merk\NotificationBundle\Model\NotificationInterface;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * @author Richard D Shank <develop@zestic.com>
  */
-class UserNotificationListener implements EventSubscriberInterface
+class UserNotificationListener
 {
     protected $emailService;
     protected $templating;
@@ -19,30 +18,23 @@ class UserNotificationListener implements EventSubscriberInterface
         $this->templating = $templating;
     }
 
-    static public function getSubscribedEvents()
+    public function onNotification(NotificationInterface $notification)
     {
-        return array(
-            'user.notification' => 'onUserNotification',
-        );
-    }
-
-    public function onUserNotification(ActionInterface $action)
-    {
-        $prefs = $this->userPreferencesManager->findByUser($action->getTarget());
+        $prefs = $this->userPreferencesManager->findByUser($notification->getTarget());
 
         foreach ($prefs->getNotificationMethods() AS $pref) {
             $notifyMethod = 'notifyBy' . ucfirst(strtolower($pref));
-            $this->$notifyMethod($action);
+            $this->$notifyMethod($notification);
         }
     }
 
-    protected function notifyByEmail(ActionInterface $action)
+    protected function notifyByEmail(NotificationInterface $notification)
     {
         $email = $this->emailService->createMessage()
             ->setSubject('Notification from your favorite site')
             ->setFrom('send@example.com')
-            ->setTo($action->getTarget()->getEmail())
-            ->setBody($this->templating->renderView('NotificationBundle:Notify.txt.twig', array('message' => $action->getMessage())))
+            ->setTo($notification->getTarget()->getEmail())
+            ->setBody($this->templating->renderView('NotificationBundle:Notify.txt.twig', array('message' => $notification->getMessage())))
         ;
         $this->emailService->send($email);
     }
