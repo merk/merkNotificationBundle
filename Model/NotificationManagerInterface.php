@@ -2,14 +2,14 @@
 namespace merk\NotificationBundle\Model;
 
 use merk\NotificationBundle\Metadata\PropertyMetadata;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use merk\NotificationBundle\Model\NotificationInterface;
 
 /**
  * @author Richard D Shank <develop@zestic.com>
  */
 interface NotificationManagerInterface
 {
-    public function dispatch(EventDispatcherInterface $notification);
+    public function dispatch(NotificationInterface $notification);
 
     /**
      * Trigger a notification event based on the instructions in the metadata and the values in the $model

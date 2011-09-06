@@ -3,6 +3,7 @@ namespace merk\NotificationBundle\Model;
 
 use merk\NotificationBundle\Metadata\PropertyMetadata;
 use merk\NotificationBundle\Model\NotificationManagerInterface;
+use merk\NotificationBundle\Model\NotificationInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
 /**
@@ -31,7 +32,7 @@ class NotificationManager implements NotificationManagerInterface
         return $notification;
     }
 
-    public function dispatch(EventDispatcher $notification)
+    public function dispatch(NotificationInterface $notification)
     {
         $this->dispatcher->notify($notification);
     }
