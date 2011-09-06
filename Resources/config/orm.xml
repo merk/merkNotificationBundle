@@ -17,6 +17,11 @@
         <service id="merk_notification.entity_manager" factory-service="doctrine" factory-method="getEntityManager" class="Doctrine\ORM\EntityManager" public="false">
             <argument>%merk_notification.model_manager_name%</argument>
         </service>
+
+        <service id="merk_notification.orm_notification" class="merk\NotificationBundle\Entity\NotificationSubscriber">
+            <argument type="service" id="service_container" />
+            <tag name="doctrine.event_subscriber" connection="default" />
+        </service>
 <!--
         <service id="merk_notification.action.manager.default" class="merk\NotificationBundle\Entity\ActionManager" public="false">
             <argument type="service" id="merk_notification.entity_manager" />

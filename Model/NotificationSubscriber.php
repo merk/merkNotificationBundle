@@ -1,5 +1,5 @@
 <?php
-namespace merk\NotificationBundle\EventListener;
+namespace merk\NotificationBundle\Model;
 
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\EventSubscriber;
@@ -9,16 +9,14 @@ use merk\NotificationBundle\Metadata\Driver\AnnotationDriver;
 /**
  * @author Richard D Shank <develop@zestic.com>
  */
-class NotificationSubscriber implements EventSubscriber
+abstract class NotificationSubscriber implements EventSubscriber
 {
     protected $container;
-    protected $notificationManager;
     protected $driver;
 
     public function __construct($container)
     {
         $this->container = $container;
-        //$this->notificationManager = $container->get('merk_notification.notification_manager');
         $this->driver = new AnnotationDriver(new AnnotationReader());
 
     }
@@ -26,33 +24,6 @@ class NotificationSubscriber implements EventSubscriber
     public function getSubscribedEvents()
     {
         return array('onFlush');
-    }
-
-    public function onFlush(OnFlushEventArgs $eventArgs)
-    {
-        $em = $eventArgs->getEntityManager();
-        $uow = $em->getUnitOfWork();
-        
-        foreach ($uow->getScheduledEntityInsertions() AS $entity) {
-            $this->process($entity, 'insert');
-        }
-
-        foreach ($uow->getScheduledEntityUpdates() AS $entity) {
-            $this->process($entity, 'update');
-        }
-
-        foreach ($uow->getScheduledEntityDeletions() AS $entity) {
-            $this->process($entity, 'delete');
-        }
-
-        foreach ($uow->getScheduledCollectionDeletions() AS $col) {
-
-        }
-
-        foreach ($uow->getScheduledCollectionUpdates() AS $col) {
-
-        }
-
     }
 
     protected function process($model, $action)
