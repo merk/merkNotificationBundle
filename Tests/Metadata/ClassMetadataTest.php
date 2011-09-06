@@ -9,6 +9,7 @@ class ClassMetadataTest extends \PHPUnit_Framework_TestCase
 {
     public function testSerializeUnserialize()
     {
+        $classMetadata = new ClassMetadata('merk\NotificationBundle\Features\Entity\Post');
 
         $this->assertEquals($classMetadata, unserialize(serialize($classMetadata)));
     }

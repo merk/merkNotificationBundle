@@ -5,6 +5,7 @@ use merk\NotificationBundle\Model\NotificationSubscriber;
 use merk\NotificationBundle\Features\Entity\Nothing;
 use merk\NotificationBundle\Features\Entity\Post;
 use merk\NotificationBundle\Features\Entity\User;
+use Symfony\Component\DependencyInjection\Container;
 
 /**
  * @author Richard D Shank <develop@zestic.com>
@@ -13,7 +14,7 @@ class NotificationSubscriberTest extends \PHPUnit_Framework_TestCase
 {
     public function testTriggerNotification()
     {
-        $ns = $this->getMockForAbstractClass('merk\NotificationBundle\Model\NotificationSubscriber', array($this->getKernel()->getContainer()));
+        $ns = $this->getMockForAbstractClass('merk\NotificationBundle\Model\NotificationSubscriber', array(new Container()));
         $triggerNotification = new \ReflectionMethod($ns,'triggerNotification');
         $triggerNotification->setAccessible(true);
         // boolean
