@@ -5,15 +5,20 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="merk_notification.notification" class="merk\NotificationBundle\Listener\NotificationSubscriber">
+        <service id="merk_notification.notification" class="merk\NotificationBundle\EventListener\NotificationSubscriber">
             <argument type="service" id="service_container" />
      <!--       <argument type="service" id="merk_notification.notification_manager" /> -->
             <tag name="doctrine.event_subscriber" connection="default" />
         </service>
-        <service id="user.notification.listener" class="merk\NotificationBundle\Listener\UserNotificationListener">
+
+        <service id="user.notification.listener" class="merk\NotificationBundle\EventListener\UserNotificationListener">
             <argument type="service" id="merk_notification.user_preferences.manager" />
             <argument type="service" id="swiftmailer.mailer" />
             <argument type="service" id="templating" />
+        </service>
+
+        <service id="merk_notification.notification_listener" class="merk\NotificationBundle\EventListener\NotificationListener">
+            <tag name="kernel.event_listener" event="merk_notification.notification_event" method="onNotification" />
         </service>
     </services>
 </container>
