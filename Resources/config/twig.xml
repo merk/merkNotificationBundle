@@ -15,7 +15,7 @@
 
     <services>
         <service id="merk_notification.twig.action" class="merk\NotificationBundle\Twig\ActionExtension" public="false">
-            <argument type="service" id="merk_notification.manager.action" />
+<!--            <argument type="service" id="merk_notification.manager.action" /> -->
             <argument type="service" id="security.context" />
             <tag name="twig.extension" />
         </service>

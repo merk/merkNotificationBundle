@@ -52,7 +52,7 @@ class merkNotificationExtension extends Extension
 
         $container->setParameter('merk_notification.model_manager_name', $config['model_manager_name']);
 
-        $container->setParameter('merk_notification.model.action.class', $config['class']['model']['action']);
+//        $container->setParameter('merk_notification.model.action.class', $config['class']['model']['action']);
         $container->setParameter('merk_notification.model.notification.class', $config['class']['model']['notification']);
         $container->setParameter('merk_notification.model.user_preferences.class', $config['class']['model']['user_preferences']);
 
@@ -61,7 +61,7 @@ class merkNotificationExtension extends Extension
         $container->setParameter('merk_notification.user_preferences.form.type', $config['user_preferences']['form_type']);
         $container->setParameter('merk_notification.user_preferences.form.name', $config['user_preferences']['form_name']);
 
-        $container->setAlias('merk_notification.manager.action', $config['action']['manager']);
+//        $container->setAlias('merk_notification.manager.action', $config['action']['manager']);
 
         $container->setAlias('merk_notification.user_notifier', $config['user_notifier']);
     }
