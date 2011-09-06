@@ -29,6 +29,11 @@
             <argument>%merk_notification.model.user_preferences.class%</argument>
             <argument type="service" id="security.context" />
         </service>
-    </services>
 
+        <service id="merk_notification.notification_manager" class="merk\NotificationBundle\Entity\NotificationManager">
+            <argument type="service" id="merk_notification.entity_manager" />
+            <argument type="service" id="event_dispatcher" />
+            <argument>%merk_notification.model.notification.class%</argument>
+        </service>
+    </services>
 </container>

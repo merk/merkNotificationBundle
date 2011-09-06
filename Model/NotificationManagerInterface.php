@@ -21,5 +21,5 @@ interface NotificationManagerInterface
      *
      * @return string
      */
-    function getClass();
+    function getNotificationClass();
 }

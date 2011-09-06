@@ -42,6 +42,7 @@ class Configuration
                         ->arrayNode('model')->isRequired()
                             ->children()
                                 ->scalarNode('action')->isRequired()->end()
+                                ->scalarNode('notification')->isRequired()->end()
                                 ->scalarNode('user_preferences')->isRequired()->end()
                             ->end()
                         ->end()

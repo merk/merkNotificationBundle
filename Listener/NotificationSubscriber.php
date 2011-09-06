@@ -11,12 +11,14 @@ use merk\NotificationBundle\Metadata\Driver\AnnotationDriver;
  */
 class NotificationSubscriber implements EventSubscriber
 {
+    protected $container;
     protected $notificationManager;
     protected $driver;
 
-    public function __construct($notificationManager = null)
+    public function __construct($container)
     {
-        $this->notificationManager = $notificationManager;
+        $this->container = $container;
+        //$this->notificationManager = $container->get('merk_notification.notification_manager');
         $this->driver = new AnnotationDriver(new AnnotationReader());
 
     }
@@ -59,8 +61,8 @@ class NotificationSubscriber implements EventSubscriber
             return;
         }
         foreach ($metadata->propertyMetadata as $property) {
-            if ($this->triggerNotification($property->trigger, $property->reflection->getValue($model))) {
-                $this->notificationManager->trigger($property, $model);
+            if ($this->triggerNotification($property->trigger, $property->getValue($model))) {
+                $this->container->get('merk_notification.notification_manager')->trigger($property, $model);
             }
         }
     }

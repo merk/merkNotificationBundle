@@ -2,7 +2,6 @@
 namespace merk\NotificationBundle\Model;
 
 use merk\NotificationBundle\Metadata\PropertyMetadata;
-use merk\NotificationBundle\Model\Notification;
 use merk\NotificationBundle\Model\NotificationManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
@@ -11,31 +10,31 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
  */
 class NotificationManager implements NotificationManagerInterface
 {
+    protected $notificationClass;
     protected $dispatcher;
 
-    public function __construct(EventDispatcher $dispatcher)
+    public function __construct(EventDispatcher $dispatcher, $notificationClass)
     {
         $this->dispatcher = $dispatcher;
+        $this->notificationClass = $notificationClass;
+    }
+
+    public function getNotificationClass()
+    {
+        return $this->class;
     }
 
     public function createNotification(array $data)
     {
-        $notification = new Notification();
-        // TODO:  move data into Notification
+        $notification = new $this->notificationClass;
 
         return $notification;
     }
 
     public function trigger(PropertyMetadata $property, $model)
     {
-        $data = array(); // TODO: this is built from the information provided by $property and $model
         $notification = $this->createNotification($data);
         $this->persistNotification($notification);
-    }
-
-    public function getClass()
-    {
-        return null;
     }
 
     protected function persistNotification($notification)

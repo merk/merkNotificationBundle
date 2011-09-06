@@ -14,19 +14,11 @@ class NotificationManager extends BaseNotificationManager
     protected $dispatcher;
     protected $em;
     protected $repository;
-    protected $class;
     protected $notifier;
 
-    public function __construct(EntityManager $em, $class, EventDispatcher $dispatcher)
+    public function __construct(EntityManager $em, EventDispatcher $dispatcher, $notificationClass)
     {
-        $this->em         = $em;
-        $this->repository = $em->getRepository($class);
-        $this->class      = $em->getClassMetadata($class)->name;
-        parent::__construct($dispatcher);
-    }
-
-    public function getNotificationClass()
-    {
-        return $this->class;
+        $this->em = $em;
+        parent::__construct($dispatcher, $notificationClass);
     }
 }

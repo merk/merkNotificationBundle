@@ -6,7 +6,8 @@
 
     <services>
         <service id="merk_notification.notification" class="merk\NotificationBundle\Listener\NotificationSubscriber">
-            <!-- <argument type="service" id="" /> -->
+            <argument type="service" id="service_container" />
+     <!--       <argument type="service" id="merk_notification.notification_manager" /> -->
             <tag name="doctrine.event_subscriber" connection="default" />
         </service>
         <service id="user.notification.listener" class="merk\NotificationBundle\Listener\UserNotificationListener">
@@ -14,6 +15,5 @@
             <argument type="service" id="swiftmailer.mailer" />
             <argument type="service" id="templating" />
         </service>
-
     </services>
 </container>
