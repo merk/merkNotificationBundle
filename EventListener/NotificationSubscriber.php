@@ -1,5 +1,5 @@
 <?php
-namespace merk\NotificationBundle\Listener;
+namespace merk\NotificationBundle\EventListener;
 
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\EventSubscriber;

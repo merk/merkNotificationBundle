@@ -1,12 +1,13 @@
 <?php
-namespace merk\NotificationBundle\Listener;
+namespace merk\NotificationBundle\EventListener;
 
-use merk\NotificationBundle\Model\ActionInterface;
+use merk\NotificationBundle\Model\NotificationInterface;
+use merk\NotificationBundle\EventListener\NotificationListener;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * @author Richard D Shank <develop@zestic.com>
  */
-class UserSMSNotificationListener implements EventSubscriberInterface
+class UserSMSNotificationListener extends NotificationListener
 {
     protected $smsService;
     protected $userPreferencesManager;
@@ -17,14 +18,7 @@ class UserSMSNotificationListener implements EventSubscriberInterface
         $this->smsService = $smsService;
     }
 
-    static public function getSubscribedEvents()
-    {
-        return array(
-            'user.notification' => 'onUserNotification',
-        );
-    }
-
-    public function onUserNotification(ActionInterface $action)
+    public function onNotification(ActionInterface $action)
     {
         $user = $action->getTarget();
         if ($this->userPreferencesManager->userHasPreference($user, 'sms')) {

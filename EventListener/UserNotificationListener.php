@@ -1,7 +1,7 @@
 <?php
-namespace merk\NotificationBundle\Listener;
+namespace merk\NotificationBundle\EventListener;
 
-use merk\NotificationBundle\Model\ActionInterface;
+use merk\NotificationBundle\Model\NotificationInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * @author Richard D Shank <develop@zestic.com>
@@ -11,7 +11,7 @@ class UserNotificationListener implements EventSubscriberInterface
     protected $emailService;
     protected $templating;
     protected $userPreferencesManager;
-    
+
     public function __construct($userPreferencesManager, $emailService, $templating)
     {
         $this->userPreferencesManager = $userPreferencesManager;
