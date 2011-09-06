@@ -34,7 +34,7 @@ class NotificationManager implements NotificationManagerInterface
 
     public function dispatch(NotificationInterface $notification)
     {
-        $this->dispatcher->dispatch('merk_notification.notification', $notification);
+        $this->dispatcher->dispatch('merk_notification.notification_event', $notification);
     }
 
     public function trigger(PropertyMetadata $property, $model)
