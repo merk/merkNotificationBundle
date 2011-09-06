@@ -1,7 +1,7 @@
 <?php
-namespace merk\NotificationBundle\Tests\Listener;
+namespace merk\NotificationBundle\Tests\Model;
 
-use merk\NotificationBundle\Listener\NotificationSubscriber;
+use merk\NotificationBundle\Model\NotificationSubscriber;
 use merk\NotificationBundle\Features\Entity\Nothing;
 use merk\NotificationBundle\Features\Entity\Post;
 use merk\NotificationBundle\Features\Entity\User;
@@ -14,7 +14,7 @@ class NotificationSubscriberTest extends WebTestCase
 {
     public function testTriggerNotification()
     {
-        $ns = new NotificationSubscriber();
+        $ns = $this->getMockForAbstractClass('merk\NotificationBundle\Model\NotificationSubscriber', array($this->getKernel()->getContainer()));
         $triggerNotification = new \ReflectionMethod($ns,'triggerNotification');
         $triggerNotification->setAccessible(true);
         // boolean
@@ -46,10 +46,7 @@ class NotificationSubscriberTest extends WebTestCase
         $this->assertTrue($triggerNotification->invokeArgs($ns, array('not [a, b, c]', 'd')), 'null added to the trigger should have the opposite effect');
     }
 
-    /**
-     * Ignore this, for now it doesn't test anything
-     */
-    public function testNotificationClasses()
+    public function testProcess()
     {
         $user = new User();
         $user->setUsername('user');
@@ -57,12 +54,16 @@ class NotificationSubscriberTest extends WebTestCase
         $post->setName('my post');
         $post->publish();
         $post->setAuthor($user);
-        
-        $em = $this->getKernel()->getContainer()->get('doctrine.orm.default_entity_manager');
-        $em->persist($user);
-        $em->persist($post);
 
-        $em->flush();
+        // add listener to EventDispatch
+        $eventDispatcher = $this->getKernel()->getContainer()->get('event_dispatcher');
+
+        $ns = $this->getMockForAbstractClass('merk\NotificationBundle\Model\NotificationSubscriber', array($this->getKernel()->getContainer()));
+        $process = new \ReflectionMethod($ns,'process');
+        $process->setAccessible(true);
+        $process->invokeArgs($ns, array($post));
+
+        // use listener to test
     }
 
     public function getKernel(array $options = array())
