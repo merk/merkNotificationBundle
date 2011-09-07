@@ -14,9 +14,9 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="merk_notification.orm_notification" class="merk\NotificationBundle\Document\NotificationSubscriber">
+        <service id="merk_notification.mongodb_notification" class="merk\NotificationBundle\Document\NotificationSubscriber">
             <argument type="service" id="service_container" />
-            <tag name="doctrine.event_subscriber" connection="default" />
+            <tag name="doctrine.common.event_subscriber" connection="default" />
         </service>
 
         <service id="merk_notification.manager.user_preferences.default" class="merk\NotificationBundle\Document\UserPreferencesManager" public="false">
