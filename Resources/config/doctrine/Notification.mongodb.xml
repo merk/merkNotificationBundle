@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mongo-mapping xmlns="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                        xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
+                        http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
+
+    <mapped-superclass name="merk\NotificationBundle\Document\Notification" collection="merk_notification_notification">
+
+        <field name="message" fieldName="message" type="string" />
+        <field name="routeName" fieldName="routeName" type="string" />
+        <field name="routeParams" fieldName="routeParams" type="string" />
+        <field name="readAt" fieldName="readAt" type="date" />
+        <field name="createdAt" fieldName="createdAt" type="date" />
+    </mapped-superclass>
+</doctrine-mongo-mapping>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+ This file is part of the NotificationBundle package.
+
+ (c) Tim Nagel <tim@nagel.com.au>
+
+ This source file is subject to the MIT license that is bundled
+ with this source code in the file LICENSE.
+-->
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="merk_notification.orm_notification" class="merk\NotificationBundle\Document\NotificationSubscriber">
+            <argument type="service" id="service_container" />
+            <tag name="doctrine.event_subscriber" connection="default" />
+        </service>
+
+        <service id="merk_notification.manager.user_preferences.default" class="merk\NotificationBundle\Document\UserPreferencesManager" public="false">
+            <argument type="service" id="doctrine.odm.mongodb.default_document_manager" />
+            <argument>%merk_notification.model.user_preferences.class%</argument>
+            <argument type="service" id="security.context" />
+        </service>
+
+        <service id="merk_notification.notification_manager" class="merk\NotificationBundle\Document\NotificationManager">
+            <argument type="service" id="doctrine.odm.mongodb.default_document_manager" />
+            <argument type="service" id="event_dispatcher" />
+            <argument>%merk_notification.model.notification.class%</argument>
+        </service>
+    </services>
+</container>
