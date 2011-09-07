@@ -22,11 +22,11 @@ class NotificationSubscriber extends BaseNotificationSubscriber
             $this->process($document, 'insert');
         }
 
-        foreach ($uow->getScheduledEntityUpdates() AS $document) {
+        foreach ($uow->getScheduledDocumentUpdates() AS $document) {
             $this->process($document, 'update');
         }
 
-        foreach ($uow->getScheduledEntityDeletions() AS $document) {
+        foreach ($uow->getScheduledDocumentDeletions() AS $document) {
             $this->process($document, 'delete');
         }
 
