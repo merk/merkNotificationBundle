@@ -12,6 +12,7 @@ Behat\Gherkin\Node\TableNode;
 
 use merk\NotificationBundle\Features\Document\Post;
 use merk\NotificationBundle\Features\Document\User;
+use merk\NotificationBundle\Features\EventListener\NotificationListener;
 
 /**
  * Require 3rd-party libraries here:
@@ -25,6 +26,8 @@ require_once 'PHPUnit/Framework/Assert/Functions.php';
  */
 class FeatureContext extends BehatContext //MinkContext if you want to test web
 {
+    protected $listener;
+    
     /**
      * @BeforeScenario
      */
@@ -38,6 +41,15 @@ class FeatureContext extends BehatContext //MinkContext if you want to test web
         $user->setUsername('SiteGuest');
         $om->persist($user);
         $om->flush();
+    }
+    
+    /**
+     * @BeforeScenario
+     */
+    public function addListener()
+    {
+        $this->listener = new NotificationListener();
+        $this->getContainer()->get('event_dispatcher')->addListener('merk_notification.notification_event', array($this->listener, 'onNotification'));
     }
 
     /**
@@ -54,6 +66,10 @@ class FeatureContext extends BehatContext //MinkContext if you want to test web
             ->remove()
             ->getQuery()
             ->execute();
+        $dm->createQueryBuilder('Acme\DemoBundle\Document\Notification')
+            ->remove()
+            ->getQuery()
+            ->execute();
     }
 
     /**
@@ -62,12 +78,7 @@ class FeatureContext extends BehatContext //MinkContext if you want to test web
     public function createsANewPostNamed($author, $name)
     {
         $om = $this->getObjectManager();
-        $author = $om->createQueryBuilder('merk\NotificationBundle\Features\Document\User')
-            ->field('username')->equals($author)
-            ->getQuery()
-            ->execute()
-            ->getSingleResult();
-
+        $author = $this->getUser($author);
         $post = new Post();
         $post->setName($name);
         $post->setAuthor($author);
@@ -97,6 +108,12 @@ class FeatureContext extends BehatContext //MinkContext if you want to test web
     public function aNotificationIsCreated()
     {
         $om = $this->getObjectManager();
+        $notification = $om->createQueryBuilder('Acme\DemoBundle\Document\Notification')
+            ->getQuery()
+            ->execute()
+            ->getSingleResult();
+//        assertSame($this->getUser(''), $notification->getAuthor());
+        $listenerNotifications = $this->listener->getNotifications();
         assertNotNull(null);
     }
 
@@ -140,6 +157,15 @@ class FeatureContext extends BehatContext //MinkContext if you want to test web
         throw new PendingException();
     }
 
+    protected function getUser($username)
+    {
+        return $this->getObjectManager()->createQueryBuilder('merk\NotificationBundle\Features\Document\User')
+            ->field('username')->equals($username)
+            ->getQuery()
+            ->execute()
+            ->getSingleResult();
+    }
+    
     protected function getObjectManager()
     {
         return $this->getContainer()->get('doctrine.odm.mongodb.default_document_manager');
