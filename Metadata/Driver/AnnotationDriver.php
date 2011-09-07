@@ -38,7 +38,7 @@ class AnnotationDriver implements DriverInterface
                 foreach ($annotations as $annotation) {
                     if ($annotation instanceof Notify) {
                         $metadata = $metadata ? $metadata : new ClassMetadata($reflectionName);
-                        $propertyMetadata = new PropertyMetadata($reflectionName, $property->getName());
+                        $propertyMetadata = new PropertyMetadata($reflectionName, $property->getName(), $metadata);
                         $propertyMetadata->author = $annotation->author;
                         $propertyMetadata->object = $annotation->object;
                         $propertyMetadata->target = $annotation->target;

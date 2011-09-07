@@ -6,8 +6,6 @@ use merk\NotificationBundle\Annotation\Notify;
 
 class Post
 {
-    /**
-     */
     protected $author;
 
     protected $name;

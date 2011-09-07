@@ -40,8 +40,7 @@ class NotificationManager implements NotificationManagerInterface
     public function trigger(PropertyMetadata $property, $model)
     {
         $notification = $this->createNotification();
-        // load data into notification
-        
+        $property->bindToNotification($notification, $model);
         $this->dispatch($notification);
         $this->persistNotification($notification);
     }
