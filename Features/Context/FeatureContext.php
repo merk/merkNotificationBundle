@@ -107,14 +107,14 @@ class FeatureContext extends BehatContext //MinkContext if you want to test web
      */
     public function aNotificationIsCreated()
     {
+        // TODO: move db into another step
         $om = $this->getObjectManager();
         $notification = $om->createQueryBuilder('Acme\DemoBundle\Document\Notification')
             ->getQuery()
             ->execute()
             ->getSingleResult();
 //        assertSame($this->getUser(''), $notification->getAuthor());
-        $listenerNotifications = $this->listener->getNotifications();
-        assertNotNull(null);
+        assertNotEmpty($this->listener->getNotifications());
     }
 
     /**
