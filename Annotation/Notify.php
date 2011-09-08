@@ -8,7 +8,7 @@ namespace merk\NotificationBundle\Annotation;
  */
 final class Notify
 {
-    public $author;
+    public $actor;
     public $object;
     public $target;
     public $trigger;
@@ -30,8 +30,8 @@ final class Notify
         $this->trigger = $values['trigger'];
         $this->verb = $values['verb'];
 
-        if (isset($values['author'])) {
-            $this->author = $values['author'];
+        if (isset($values['actor'])) {
+            $this->actor = $values['actor'];
         }
 
         if (isset($values['target'])) {

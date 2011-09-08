@@ -27,7 +27,7 @@ class Post
 
     /**
      * @MongoDB\Boolean
-     * @Notify(trigger="true", object="this", verb="publish", author="author")
+     * @Notify(trigger="true", object="this", verb="publish", actor="author")
      */
     protected $published = false;
 
