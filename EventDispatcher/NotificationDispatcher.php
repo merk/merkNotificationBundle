@@ -1,18 +1,20 @@
 <?php
-namespace merk\NotificationBundle\Model;
+namespace merk\NotificationBundle\EventDispatcher;
 
+use merk\NotificationBundle\EventDispatcher\NotificationDispatcherInterface;
 use merk\NotificationBundle\Metadata\PropertyMetadata;
-use merk\NotificationBundle\Model\NotificationManagerInterface;
 use merk\NotificationBundle\Model\NotificationInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
 /**
  * @author Richard D Shank <develop@zestic.com>
  */
-class NotificationManager implements NotificationManagerInterface
+class NotificationDispatcher implements NotificationDispatcherInterface
 {
-    protected $notificationClass;
+    protected $dependencies;
     protected $dispatcher;
+    protected $notificationClass;
+    protected $notifications = array();
 
     public function __construct(EventDispatcher $dispatcher, $notificationClass)
     {
@@ -22,14 +24,12 @@ class NotificationManager implements NotificationManagerInterface
 
     public function getNotificationClass()
     {
-        return $this->class;
+        return $this->notificationClass;
     }
 
     public function createNotification()
     {
         return new $this->notificationClass;
-
-        return $notification;
     }
 
     public function dispatch(NotificationInterface $notification)
@@ -42,11 +42,5 @@ class NotificationManager implements NotificationManagerInterface
         $notification = $this->createNotification();
         $property->bindToNotification($notification, $model);
         $this->dispatch($notification);
-        $this->persistNotification($notification);
-    }
-
-    protected function persistNotification($notification)
-    {
-        return null;
     }
 }

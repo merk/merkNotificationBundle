@@ -1,5 +1,5 @@
 <?php
-namespace merk\NotificationBundle\Model;
+namespace merk\NotificationBundle\EventDispatcher;
 
 use merk\NotificationBundle\Metadata\PropertyMetadata;
 use merk\NotificationBundle\Model\NotificationInterface;
@@ -7,7 +7,7 @@ use merk\NotificationBundle\Model\NotificationInterface;
 /**
  * @author Richard D Shank <develop@zestic.com>
  */
-interface NotificationManagerInterface
+interface NotificationDispatcherInterface
 {
     public function dispatch(NotificationInterface $notification);
 

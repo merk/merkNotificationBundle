@@ -25,10 +25,9 @@
             <argument type="service" id="security.context" />
         </service>
 
-        <service id="merk_notification.notification_manager" class="merk\NotificationBundle\Document\NotificationManager">
+        <service id="merk_notification.mongodb_listener" class="merk\NotificationBundle\EventListener\MongoDBListener">
             <argument type="service" id="doctrine.odm.mongodb.default_document_manager" />
-            <argument type="service" id="event_dispatcher" />
-            <argument>%merk_notification.model.notification.class%</argument>
+            <tag name="kernel.event_listener" event="merk_notification.notification_event" method="onNotification" />
         </service>
     </services>
 </container>

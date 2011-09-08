@@ -34,7 +34,7 @@ abstract class NotificationSubscriber implements EventSubscriber
         }
         foreach ($metadata->propertyMetadata as $property) {
             if ($this->triggerNotification($property->trigger, $property->getValue($model))) {
-                $this->container->get('merk_notification.notification_manager')->trigger($property, $model);
+                $this->container->get('merk_notification.notification_dispatcher')->trigger($property, $model);
             }
         }
     }
