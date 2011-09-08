@@ -27,6 +27,7 @@ require_once 'PHPUnit/Framework/Assert/Functions.php';
 class FeatureContext extends BehatContext //MinkContext if you want to test web
 {
     protected $listener;
+    protected $object = array();
 
     /**
      * @BeforeScenario
@@ -34,12 +35,12 @@ class FeatureContext extends BehatContext //MinkContext if you want to test web
     public function createUsers($event)
     {
         $om = $this->getObjectManager();
-        $user = new User();
-        $user->setUsername('SiteOwner');
-        $om->persist($user);
-        $user = new User();
-        $user->setUsername('SiteGuest');
-        $om->persist($user);
+        $this->object['SiteOwner'] = new User();
+        $this->object['SiteOwner']->setUsername('SiteOwner');
+        $om->persist($this->object['SiteOwner']);
+        $this->object['SiteGuest'] = new User();
+        $this->object['SiteGuest']->setUsername('SiteGuest');
+        $om->persist($this->object['SiteGuest']);
         $om->flush();
     }
     
@@ -75,16 +76,16 @@ class FeatureContext extends BehatContext //MinkContext if you want to test web
     /**
      * @Given /^"([^"]*)" creates a new post named "([^"]*)"$/
      */
-    public function createsANewPostNamed($author, $name)
+    public function createsANewPostNamed($author, $postName)
     {
         $om = $this->getObjectManager();
-        $author = $this->getUser($author);
-        $post = new Post();
-        $post->setName($name);
-        $post->setAuthor($author);
-        $om->persist($post);
+        $this->object[$author] = $this->getUser($author);
+        $this->object[$postName] = new Post();
+        $this->object[$postName]->setName($postName);
+        $this->object[$postName]->setAuthor($this->object[$author]);
+        $om->persist($this->object[$postName]);
         $om->flush();
-        assertNotNull($post->getId());
+        assertNotNull($this->object[$postName]->getId());
     }
 
     /**
@@ -93,12 +94,12 @@ class FeatureContext extends BehatContext //MinkContext if you want to test web
     public function thePublishesThePost($author, $postName)
     {
         $om = $this->getObjectManager();
-        $post = $om->createQueryBuilder('merk\NotificationBundle\Features\Document\Post')
+        $this->post[$postName] = $om->createQueryBuilder('merk\NotificationBundle\Features\Document\Post')
             ->field('name')->equals($postName)
             ->getQuery()
             ->execute()
             ->getSingleResult();
-        $post->publish();
+        $this->post[$postName]->publish();
         $om->flush();
     }
 
@@ -107,7 +108,7 @@ class FeatureContext extends BehatContext //MinkContext if you want to test web
      */
     public function aNotificationIsDispatched()
     {
-        assertNotEmpty($this->listener->getNotifications(), 'A notification event should have been dispatched');
+        assertNotNull($this->listener->getNotification(), 'A notification event should have been dispatched');
     }
 
     /**
@@ -115,15 +116,18 @@ class FeatureContext extends BehatContext //MinkContext if you want to test web
      */
     public function aReferenceToIsPersistedAsTheOfTheNotification($object, $part)
     {
-        throw new PendingException();
+        $function = 'get' . ucfirst($part);
+        assertSame($this->object[$object], $this->listener->getNotification()->$function());
     }
 
     /**
      * @Given /^"([^"]*)" is persisted as the verb of the notification$/
      */
-    public function isPersistedAsTheVerbOfTheNotification($argument1)
+    public function isPersistedAsTheVerbOfTheNotification($string)
     {
-        throw new PendingException();
+        $part = 'verb';
+        $function = 'get' . ucfirst($part);
+        assertSame($string, $this->listener->getNotification()->$function());
     }
 
     /**

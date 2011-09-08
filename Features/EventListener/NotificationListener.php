@@ -8,15 +8,15 @@ use merk\NotificationBundle\Model\NotificationInterface;
  */
 class NotificationListener
 {
-    protected $notifications = array();
+    protected $notification;
 
     public function onNotification(NotificationInterface $notification)
     {
-        $this->notifications[] = $notification;
+        $this->notification = $notification;
     }
 
-    public function getNotifications()
+    public function getNotification()
     {
-        return $this->notifications;
+        return $this->notification;
     }
 }
