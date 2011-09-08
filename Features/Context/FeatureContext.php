@@ -27,7 +27,7 @@ require_once 'PHPUnit/Framework/Assert/Functions.php';
 class FeatureContext extends BehatContext //MinkContext if you want to test web
 {
     protected $listener;
-    
+
     /**
      * @BeforeScenario
      */
@@ -103,18 +103,11 @@ class FeatureContext extends BehatContext //MinkContext if you want to test web
     }
 
     /**
-     * @Then /^a notification is created$/
+     * @Then /^a notification is dispatched$/
      */
-    public function aNotificationIsCreated()
+    public function aNotificationIsDispatched()
     {
-        // TODO: move db into another step
-        $om = $this->getObjectManager();
-        $notification = $om->createQueryBuilder('Acme\DemoBundle\Document\Notification')
-            ->getQuery()
-            ->execute()
-            ->getSingleResult();
-//        assertSame($this->getUser(''), $notification->getAuthor());
-        assertNotEmpty($this->listener->getNotifications());
+        assertNotEmpty($this->listener->getNotifications(), 'A notification event should have been dispatched');
     }
 
     /**
