@@ -4,6 +4,7 @@ namespace merk\NotificationBundle\Model;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\OnFlushEventArgs;
+use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 
 use merk\NotificationBundle\Metadata\Driver\AnnotationDriver;
 /**
@@ -13,6 +14,7 @@ abstract class NotificationSubscriber implements EventSubscriber
 {
     protected $container;
     protected $driver;
+    protected $notifications;
 
     public function __construct($container)
     {
@@ -22,7 +24,7 @@ abstract class NotificationSubscriber implements EventSubscriber
 
     public function getSubscribedEvents()
     {
-        return array('onFlush');
+        return array('postPersist', 'postRemove', 'postUpdate');
     }
 
     protected function process($model, $action = null)

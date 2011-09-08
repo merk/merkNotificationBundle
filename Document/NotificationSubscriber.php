@@ -4,6 +4,7 @@ namespace merk\NotificationBundle\Document;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ODM\MongoDB\Event\OnFlushEventArgs;
+use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 
 use merk\NotificationBundle\Metadata\Driver\AnnotationDriver;
 use merk\NotificationBundle\Model\NotificationSubscriber as BaseNotificationSubscriber;
@@ -13,29 +14,18 @@ use merk\NotificationBundle\Model\NotificationSubscriber as BaseNotificationSubs
  */
 class NotificationSubscriber extends BaseNotificationSubscriber
 {
-    public function onFlush(OnFlushEventArgs $eventArgs)
+    public function postPersist(LifecycleEventArgs $args)
     {
-        $dm = $eventArgs->getDocumentManager();
-        $uow = $dm->getUnitOfWork();
-        
-        foreach ($uow->getScheduledDocumentInsertions() AS $document) {
-            $this->process($document, 'insert');
-        }
+        $this->process($args->getDocument());
+    }
 
-        foreach ($uow->getScheduledDocumentUpdates() AS $document) {
-            $this->process($document, 'update');
-        }
+    public function postRemove(LifecycleEventArgs $args)
+    {
+        $this->process($args->getDocument());
+    }
 
-        foreach ($uow->getScheduledDocumentDeletions() AS $document) {
-            $this->process($document, 'delete');
-        }
-
-        foreach ($uow->getScheduledCollectionDeletions() AS $col) {
-
-        }
-
-        foreach ($uow->getScheduledCollectionUpdates() AS $col) {
-
-        }
+    public function postUpdate(LifecycleEventArgs $args)
+    {
+        $this->process($args->getDocument());
     }
 }

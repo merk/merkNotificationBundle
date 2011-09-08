@@ -9,6 +9,7 @@
         <field name="message" fieldName="message" type="string" />
         <field name="routeName" fieldName="routeName" type="string" />
         <field name="routeParams" fieldName="routeParams" type="string" />
+        <field name="verb" fieldName="verb" type="string" />
         <field name="readAt" fieldName="readAt" type="date" />
         <field name="createdAt" fieldName="createdAt" type="date" />
     </mapped-superclass>
