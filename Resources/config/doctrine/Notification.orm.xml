@@ -14,7 +14,7 @@
                         xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                         http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <mapped-superclass name="merk\NotificationBundle\Entity\Action">
+    <mapped-superclass name="merk\NotificationBundle\Entity\Notification">
 
         <field name="message" column="message" type="string" />
         <field name="readAt" column="readAt" type="datetime" nullable="true" />

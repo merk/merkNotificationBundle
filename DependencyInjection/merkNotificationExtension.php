@@ -41,18 +41,19 @@ class merkNotificationExtension extends Extension
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
 
-        if (!in_array(strtolower($config['db_driver']), array('orm'))) {
+        if (!in_array(strtolower($config['db_driver']), array('orm', 'mongodb'))) {
             throw new \InvalidArgumentException(sprintf('Invalid db driver "%s".', $config['db_driver']));
         }
         $loader->load(sprintf('%s.xml', $config['db_driver']));
 
-        foreach (array('notifier', 'twig', 'user_preferences') as $basename) {
+        foreach (array('event_dispatcher', 'listener', 'notifier', 'twig', 'user_preferences') as $basename) {
             $loader->load(sprintf('%s.xml', $basename));
         }
 
         $container->setParameter('merk_notification.model_manager_name', $config['model_manager_name']);
 
-        $container->setParameter('merk_notification.model.action.class', $config['class']['model']['action']);
+//        $container->setParameter('merk_notification.model.action.class', $config['class']['model']['action']);
+        $container->setParameter('merk_notification.model.notification.class', $config['class']['model']['notification']);
         $container->setParameter('merk_notification.model.user_preferences.class', $config['class']['model']['user_preferences']);
 
         $container->setAlias('merk_notification.user_preferences.manager', $config['user_preferences']['manager']);
@@ -60,7 +61,7 @@ class merkNotificationExtension extends Extension
         $container->setParameter('merk_notification.user_preferences.form.type', $config['user_preferences']['form_type']);
         $container->setParameter('merk_notification.user_preferences.form.name', $config['user_preferences']['form_name']);
 
-        $container->setAlias('merk_notification.manager.action', $config['action']['manager']);
+//        $container->setAlias('merk_notification.manager.action', $config['action']['manager']);
 
         $container->setAlias('merk_notification.user_notifier', $config['user_notifier']);
     }

@@ -9,11 +9,11 @@
  * with this source code in the file LICENSE.
  */
 
-namespace merk\NotificationBundle\Entity;
+namespace merk\NotificationBundle\Document;
 
-use merk\NotificationBundle\Model\Action as BaseAction;
+use merk\NotificationBundle\Model\Notification as BaseNotification;
 
-abstract class Action extends BaseAction
+abstract class Notification extends BaseNotification
 {
 
 }
