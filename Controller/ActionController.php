@@ -22,6 +22,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class ActionController extends ContainerAware
 {
+
     public function listAction()
     {
         $actions = $this->container->get('merk_notification.manager.action')->getAction();

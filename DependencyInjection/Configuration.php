@@ -41,7 +41,8 @@ class Configuration
                     ->children()
                         ->arrayNode('model')->isRequired()
                             ->children()
-                                ->scalarNode('action')->isRequired()->end()
+//                                ->scalarNode('action')->isRequired()->end()
+                                ->scalarNode('notification')->isRequired()->end()
                                 ->scalarNode('user_preferences')->isRequired()->end()
                             ->end()
                         ->end()
@@ -57,14 +58,14 @@ class Configuration
                         ->scalarNode('form_handler')->cannotBeEmpty()->defaultValue('merk_notification.user_preferences.form.handler.default')->end()
                     ->end()
                 ->end()
-
+/*
                 ->arrayNode('action')
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('manager')->cannotBeEmpty()->defaultValue('merk_notification.action.manager.default')->end()
                     ->end()
                 ->end()
-
+*/
                 ->scalarNode('user_notifier')->cannotBeEmpty()->defaultValue('merk_notification.user_notifier.default')->end()
             ->end()
         ->end();
