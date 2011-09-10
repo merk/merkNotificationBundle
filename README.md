@@ -31,7 +31,7 @@ This example is using annotations in the model to trigger a notification.
     {
         /**
          * @ORM\Column(type="boolean")
-         * @Notify(trigger="true", object="this", verb="publish", author="author")
+         * @Notify(trigger="true", object="this", verb="publish", actor="author")
          */
         protected $published = false;
 
