@@ -3,7 +3,7 @@ namespace merk\NotificationBundle\Entity;
 
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\EventSubscriber;
-use Doctrine\ORM\Event\OnFlushEventArgs;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 
 use merk\NotificationBundle\Metadata\Driver\AnnotationDriver;
 use merk\NotificationBundle\Model\NotificationSubscriber as BaseNotificationSubscriber;
@@ -13,29 +13,18 @@ use merk\NotificationBundle\Model\NotificationSubscriber as BaseNotificationSubs
  */
 class NotificationSubscriber extends BaseNotificationSubscriber
 {
-    public function onFlush(OnFlushEventArgs $eventArgs)
+    public function postPersist(LifecycleEventArgs $args)
     {
-        $em = $eventArgs->getEntityManager();
-        $uow = $em->getUnitOfWork();
-        
-        foreach ($uow->getScheduledEntityInsertions() AS $entity) {
-            $this->process($entity, 'insert');
-        }
+        $this->process($args->getEntity());
+    }
 
-        foreach ($uow->getScheduledEntityUpdates() AS $entity) {
-            $this->process($entity, 'update');
-        }
+    public function postRemove(LifecycleEventArgs $args)
+    {
+        $this->process($args->getEntity());
+    }
 
-        foreach ($uow->getScheduledEntityDeletions() AS $entity) {
-            $this->process($entity, 'delete');
-        }
-
-        foreach ($uow->getScheduledCollectionDeletions() AS $col) {
-
-        }
-
-        foreach ($uow->getScheduledCollectionUpdates() AS $col) {
-
-        }
+    public function postUpdate(LifecycleEventArgs $args)
+    {
+        $this->process($args->getEntity());
     }
 }
