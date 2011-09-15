@@ -65,9 +65,19 @@ class Notification extends Event implements NotificationInterface
         return $this->object;
     }
 
+    public function setObject($object)
+    {
+        $this->object = $object;
+    }
+
     public function getVerb()
     {
         return $this->verb;
+    }
+
+    public function setVerb($verb)
+    {
+        $this->verb = $verb;
     }
 
     public function getTarget()
@@ -75,9 +85,19 @@ class Notification extends Event implements NotificationInterface
         return $this->target;
     }
 
+    public function setTarget($target)
+    {
+        $this->target = $target;
+    }
+
     public function getActor()
     {
         return $this->actor;
+    }
+
+    public function setActor($actor)
+    {
+        $this->actor = $actor;
     }
 
     public function getCreatedAt()
