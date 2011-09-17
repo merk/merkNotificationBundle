@@ -6,11 +6,12 @@
 
     <mapped-superclass name="merk\NotificationBundle\Document\Notification" collection="merk_notification_notification">
 
+        <field name="attributes" fieldName="attributes" type="hash" />
         <field name="message" fieldName="message" type="string" />
+        <field name="readAt" fieldName="readAt" type="date" />
         <field name="routeName" fieldName="routeName" type="string" />
         <field name="routeParams" fieldName="routeParams" type="string" />
         <field name="verb" fieldName="verb" type="string" />
-        <field name="readAt" fieldName="readAt" type="date" />
         <field name="createdAt" fieldName="createdAt" type="date" />
     </mapped-superclass>
 </doctrine-mongo-mapping>

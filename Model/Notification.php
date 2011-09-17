@@ -20,15 +20,16 @@ use \DateTime;
  */
 class Notification extends Event implements NotificationInterface
 {
-    protected $readAt;
-    protected $target;
     protected $actor;
+    protected $attributes;
+    protected $createdAt;
     protected $message;
     protected $object;
-    protected $verb;
-    protected $createdAt;
+    protected $readAt;
     protected $routeName;
     protected $routeParams;
+    protected $target;
+    protected $verb;
 
     public function __construct(array $data = array())
     {
@@ -123,5 +124,20 @@ class Notification extends Event implements NotificationInterface
     public function setRouteParams(array $routeParams)
     {
         $this->routeParams = implode(',', $routeParams);
+    }
+
+    public function addAttribute($attribute)
+    {
+        $this->attributes[] = $attribute;
+    }
+
+    public function setAttributes($attributes)
+    {
+        $this->attributes = $attributes;
+    }
+
+    public function getAttributes()
+    {
+        return $this->attributes;
     }
 }
