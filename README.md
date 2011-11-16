@@ -44,6 +44,40 @@ This example is using annotations in the model to trigger a notification.
         ... 
 ```
 
+
+You can create a notification listener 
+
+```php
+
+    class CustomNotificationListenr
+    {
+        public function onNotification(NotificationInterface $notification)
+        {
+            // do something here
+        }
+    }
+
+```
+
+Add the listener
+
+
+```php
+
+    $listener = new CustomNotificationListener();
+    $this->getContainer()->get('event_dispatcher')->addListener('merk_notification.notification_event', array($listener, 'onNotification'));
+
+```
+
+When using the annotations, your CustomNotificationLister() will be triggered when the value published is set to true.
+
+The MongoDBListener that will persist the notifcation.
+
+Look in the Features folder for more information about the usage of the bundle.
+
+
+The following Twig information may not be accurate. 
+
 This annotation indicates that when published is set to true, a notification is created that sets the object to that
 instance, the verb is publish and the author is the contents of $author.
 
