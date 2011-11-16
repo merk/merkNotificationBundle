@@ -73,4 +73,11 @@ Enable NotificationBundle in your configuration::
 
     # app/config/config.yml
 
-    merk_notification: ~
+    merk_notification:
+        db_driver: mongodb
+        class:
+            model:
+                notification:   Acme\DemoBundle\Document\Notification
+
+Acme\DemoBundle\Document\Notification extends merk\NotificationBundle\Document\Notification
+
