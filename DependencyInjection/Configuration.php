@@ -43,7 +43,7 @@ class Configuration
                             ->children()
 //                                ->scalarNode('action')->isRequired()->end()
                                 ->scalarNode('notification')->isRequired()->end()
-                                ->scalarNode('user_preferences')->isRequired()->end()
+//                                ->scalarNode('user_preferences')->isRequired()->end()
                             ->end()
                         ->end()
                     ->end()
