@@ -161,6 +161,7 @@ class Filter extends BaseFilter
      */
     protected $userPreferences;
 }
+```
 
 ``` php
 <?php
