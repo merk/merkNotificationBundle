@@ -11,6 +11,28 @@ Features yet to be added include:
 - Metadata (annotations, yml, xml) definitions on objects that will automatically trigger notification events
 - Additional sending methods, besides email (twitter, sms, etc)
 
+## Basic Usage
+
+Once users have set up their notification preferences and filters,
+NotificationBundle will send notifications when they are fired by your code.
+
+To fire an event:
+
+``` php
+<?php
+
+    // $actor -- UserInterface object
+    // $subject -- An object managed by the Doctrine ORM
+
+    $this->container->get('merk_notification.notifier')->trigger('event.key', $subject, 'viewed', $actor);
+```
+
+## Prerequisites
+
+### Swift Mailer
+
+At this point, Notification bundle is only capable of sending email
+notifications and requires Swift Mailer to be set up appropriately.
 
 ## Installation
 
@@ -140,7 +162,7 @@ class Filter extends BaseFilter
     protected $userPreferences;
 }
 
-```
+``` php
 <?php
 
 // src/Company/AppBundle/Entity/Notification.php
