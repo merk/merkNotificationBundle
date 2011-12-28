@@ -1,0 +1,12 @@
+{% extends "merkNotificationBundle::layout.html.twig" %}
+
+{% block merk_notification_content %}
+
+<form action="{{ path('merk_notification_user_preferences') }}" {{ form_enctype(form) }} method="POST" class="merk_notification_user_preferences">
+    {{ form_widget(form) }}
+    <div>
+        <input type="submit" value="{{ 'user_preferences.edit.submit'|trans({}, 'merkNotificationBundle') }}" />
+    </div>
+</form>
+
+{% endblock merk_notification_content %}

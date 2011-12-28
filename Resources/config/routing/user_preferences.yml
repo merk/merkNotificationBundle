@@ -1,0 +1,4 @@
+merk_notification_user_preferences:
+    pattern: /
+    defaults:
+        _controller: merkNotificationBundle:UserPreferences:edit

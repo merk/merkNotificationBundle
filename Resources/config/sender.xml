@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="merk_notification.sender" class="merk\NotificationBundle\Sender\Sender">
+            <argument type="collection" /> <!-- Agents -->
+        </service>
+
+        <service id="merk_notification.sender.agent.sms" class="merk\NotificationBundle\Sender\Agent\SMSAgent">
+            <tag name="merk_notification.sender.agent" alias="sms" />
+        </service>
+
+        <service id="merk_notification.sender.agent.email" class="merk\NotificationBundle\Sender\Agent\EmailAgent">
+            <tag name="merk_notification.sender.agent" alias="email" />
+            <argument type="service" id="mailer" />
+        </service>
+
+    </services>
+
+</container>

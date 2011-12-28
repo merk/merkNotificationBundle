@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="merk_notification.entity_manager" factory-service="doctrine" factory-method="getEntityManager" class="Doctrine\ORM\EntityManager" public="false">
+            <argument>%merk_notification.model_manager_name%</argument>
+        </service>
+
+        <service id="merk_notification.notification_event.manager.default" class="merk\NotificationBundle\Entity\NotificationEventManager">
+            <argument type="service" id="merk_notification.entity_manager" />
+            <argument>%merk_notification.notification_event.class%</argument>
+        </service>
+
+        <service id="merk_notification.user_preferences.manager.default" class="merk\NotificationBundle\Entity\UserPreferencesManager">
+            <argument type="service" id="merk_notification.entity_manager" />
+            <argument>%merk_notification.user_preferences.class%</argument>
+        </service>
+
+        <service id="merk_notification.notification.manager.default" class="merk\NotificationBundle\Entity\NotificationManager">
+            <argument type="service" id="merk_notification.entity_manager" />
+            <argument>%merk_notification.notification.class%</argument>
+            <argument type="service" id="merk_notification.renderer" />
+        </service>
+
+        <service id="merk_notification.filter.manager.default" class="merk\NotificationBundle\Entity\FilterManager">
+            <argument type="service" id="merk_notification.entity_manager" />
+            <argument>%merk_notification.filter.class%</argument>
+        </service>
+
+        <service id="merk_notification.notification_event.listener" class="merk\NotificationBundle\Entity\NotificationEventListener" public="false">
+            <tag name="doctrine.event_subscriber" />
+            <argument type="service" id="service_container" />
+        </service>
+
+    </services>
+
+</container>

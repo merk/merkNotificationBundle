@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="merk_notification.user_preferences.form.type" class="merk\NotificationBundle\Form\Type\UserPreferencesType">
+            <tag name="form.type" alias="merk_notification_user_preferences" />
+
+            <argument>%merk_notification.user_preferences.class%</argument>
+            <argument type="service" id="merk_notification.sender" />
+        </service>
+
+        <service id="merk_notification.filter.form.type" class="merk\NotificationBundle\Form\Type\FilterType">
+            <tag name="form.type" alias="merk_notification_user_preferences_filter" />
+
+            <argument>%merk_notification.filter.class%</argument>
+            <argument type="service" id="merk_notification.sender" />
+        </service>
+
+    </services>
+
+</container>

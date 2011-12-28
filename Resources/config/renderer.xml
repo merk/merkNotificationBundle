@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="merk_notification.renderer" class="merk\NotificationBundle\Renderer\Renderer">
+            <argument type="service" id="templating" />
+            <argument>merkNotificationBundle:Notifications:%%s.%%s.%%s.twig</argument>
+        </service>
+
+    </services>
+
+</container>
