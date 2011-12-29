@@ -7,9 +7,10 @@ lifecycle that users will be able to subscribe to, and be notified
 when they occur.
 
 Features yet to be added include:
-- Setting NotificationBundle to listen for events sent with Symfony2's Event Dispatcher
-- Metadata (annotations, yml, xml) definitions on objects that will automatically trigger notification events
-- Additional sending methods, besides email (twitter, sms, etc)
+ * Setting NotificationBundle to listen for events sent with Symfony2's Event Dispatcher
+ * Metadata (annotations, yml, xml) definitions on objects that will automatically trigger notification events
+ * Additional sending methods, besides email (twitter, sms, etc)
+ * A method of defining notification events that will occur in runtime (so that users can preselect event keys)
 
 ## Basic Usage
 
@@ -368,3 +369,27 @@ For ORM run the following command.
 ``` bash
 $ php app/console doctrine:schema:update --force
 ```
+
+### Step 8: Overwrite templates for specific events
+
+The first line of the rendered output is used as the subject (when used by the
+sending agent), with the rest of the output being used in the notification body.
+
+The rendering of each notification follows a specific path while trying to find
+which template to use.
+
+The logic used to find the template follows the path outlined below:
+
+```
+    some.event.key => some.event.key.email.txt.twig
+                   => some.event.email.txt.twig
+                   => some.email.txt.twig
+                   => base.email.txt.twig
+```
+
+The templates should be placed in `app/Resources/merkNotificationBundle/views/Notifications`
+and should extend the base template, though they dont have to. There is one variable passed
+into the template, `notification` which contains the individual notification sent for a
+single user.
+
+The template is rendered separately for each user to be notified for each notification type.
