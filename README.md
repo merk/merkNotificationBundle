@@ -355,7 +355,7 @@ In YAML:
 ``` yaml
 # app/config/routing.yml
 merk_notification:
-    resource: "@merkNotificationBundle/Resources/config/routing/user_preferences.xml"
+    resource: "@merkNotificationBundle/Resources/config/routing/user_preferences.yml"
 ```
 
 ### Step 7: Update your database schema
